@@ -17,6 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/log', function () {
-    return view('login');
-});
+Route::get('/auth/login', 'AuthController@login');
+
+Route::post('/auth/login_action', 'AuthController@login_action');
