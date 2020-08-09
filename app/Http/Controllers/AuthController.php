@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
+use Auth;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -16,23 +20,19 @@ class AuthController extends Controller
 
     public function login_action(Request $request){
 
-        $email= $request->email;
+
+        $user= $request->username;
         $password = $request->password;
 
-        $user = User::where('email',$email)->first();
+        $user = User::where([['username',$user],['password',$password]])->first();
 
         if($user) {
-            if(password_verify($request->password,$user->password)){
-
-            }
-
-            else{
-                redirect('/auth/login')->with('error','email / password anda salah');
-            }
+            Session::put('nama_user',$user->nama_user);
+            Session::put('login',TRUE);
+            return redirect('/dashboard')->with('msg','Anda berhasil Login');
         }
-
         else{
-            redirect('/auth/login')->with('error','email / password anda salah');
+            return redirect('/auth/login')->with('error','email / password anda salah');
         }
 
     }

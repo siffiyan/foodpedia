@@ -86,7 +86,7 @@
     <br>
     <p class="lead">Lorem Ipsum adalah contoh teks atau dummy dalam industri percetakan dan penataan huruf atau typesetting. Lorem Ipsum telah menjadi standar contoh teks sejak tahun 1500an,</p>
     <p class="lead">
-    <a href="{{'/log'}}" class="btn btn-lg btn-secondary">LOGIN NOW</a>
+    <a href="{{'/auth/login'}}" class="btn btn-lg btn-secondary">LOGIN NOW</a>
     </p>
   </main>
 
