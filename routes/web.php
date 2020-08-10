@@ -21,8 +21,9 @@ Route::get('/auth/login', 'AuthController@login');
 Route::post('/auth/login_action', 'AuthController@login_action');
 
 Route::prefix('admin')->group(function () {
-    Route::view('/dashboard', 'admin.index');
-    Route::view('/administrator', 'admin.management_user.administrator');
+    Route::get('/dashboard', 'SuperAdmin\DashboardController@index');
+    Route::get('/manajemen_user', 'SuperAdmin\ManajemenUserController@index');
+    Route::post('/manajemen_user/store', 'SuperAdmin\ManajemenUserController@store');
 });
 
 

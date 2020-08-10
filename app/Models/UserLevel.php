@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Users extends Model
+class UserLevel extends Model
 {
-    protected $table = "users";
+    protected $table = "user_levels";
     protected $guarded = [];
     public $timestamps = false;
 }
