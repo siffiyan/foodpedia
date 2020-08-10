@@ -11,8 +11,11 @@
   <link rel="stylesheet" href="{{ asset('template/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{asset('template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="{{ asset('template/dist/css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{asset('template/dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -35,18 +38,16 @@
           <div class="col-sm-6">
             <h1>@yield('title')</h1>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
-            </ol>
-          </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
-    @yield('content')
+    <section class="content">
+      <div class="container-fluid">
+        @yield('content')
+      </div>
+    </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -75,5 +76,24 @@
 <script src=" {{ asset('template/dist/js/adminlte.min.js') }} "></script>
 <!-- AdminLTE for demo purposes -->
 <script src=" {{ asset('template/dist/js/demo.js') }} "></script>
+<!-- DataTables -->
+<script src="{{asset('template/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('template/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<!-- PAGE PLUGINS -->
+<!-- jQuery Mapael -->
+<script src="{{asset('template/plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
+<script src="{{asset('template/plugins/raphael/raphael.min.js')}}"></script>
+<script src="{{asset('template/plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
+<script src="{{asset('template/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
+<!-- ChartJS -->
+<script src="{{asset('template/plugins/chart.js/Chart.min.js')}}"></script>
+
+<!-- PAGE SCRIPTS -->
+<script src="{{asset('template/dist/js/pages/dashboard2.js')}}"></script>
+
+@yield('js')
+
 </body>
 </html>
