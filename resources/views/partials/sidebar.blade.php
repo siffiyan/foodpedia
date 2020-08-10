@@ -33,22 +33,13 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+           <li class="nav-item">
+            <a href="/admin/manajemen_user" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
-                Management User
-                <i class="right fas fa-angle-left"></i>
+                Manajemen User
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/admin/administrator" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Administrator</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
