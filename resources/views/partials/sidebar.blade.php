@@ -50,6 +50,35 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fab fa-accusoft"></i>
+              <p>
+                Project
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/admin/project" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Project</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/administrator" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Termin</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/administrator" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Vendor</p>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

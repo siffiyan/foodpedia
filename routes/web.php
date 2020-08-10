@@ -23,6 +23,8 @@ Route::post('/auth/login_action', 'AuthController@login_action');
 Route::prefix('admin')->group(function () {
     Route::view('/dashboard', 'admin.index');
     Route::view('/administrator', 'admin.management_user.administrator');
+    Route::view('/project', 'admin.project.project');
+    Route::view('/project/list', 'admin.project.list');
 });
 
 

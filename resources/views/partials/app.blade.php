@@ -110,10 +110,6 @@
       timer: 3000
     });
   });
-
-  $('document').ready(function(){
-    bsCustomFileInput.init();
-  })
 </script>
 
 @yield('js')
