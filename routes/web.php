@@ -24,6 +24,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard', 'SuperAdmin\DashboardController@index');
     Route::get('/manajemen_user', 'SuperAdmin\ManajemenUserController@index');
     Route::post('/manajemen_user/store', 'SuperAdmin\ManajemenUserController@store');
+
+    Route::view('/project','admin.project.index');
+    Route::view('/project/add','admin.project.add_project');
+    Route::view('/project/vendor','admin.project.vendor');
+    Route::view('/project/termin','admin.project.termin');
 });
 
 

@@ -57,13 +57,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/administrator" class="nav-link">
+                <a href="/admin/project/termin" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Termin</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/administrator" class="nav-link">
+                <a href="/admin/project/vendor" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Vendor</p>
                 </a>

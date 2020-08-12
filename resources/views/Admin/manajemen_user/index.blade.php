@@ -44,8 +44,14 @@
                 @foreach($user as $r)
                 <tr>
                     <td>{{$r->nama_user}}</td>
-                    <td>{{$r->isactive}}</td>
-                    <td>{{$r->id_user_level}}</td>
+                    <td class="text-center">
+                        @if($r->isactive == 1)
+                            <span class="badge badge-success" onclick="inactive()">active</span>
+                        @else
+                            <span class="badge badge-warning" onclick="active()">active</span>
+                        @endif
+                    </td>
+                    <td class="text-center">{{$r->id_user_level}}</td>
                      <td class="text-center">
                     <button class="btn btn-info" onclick="edit()"><i class="fa fa-edit"></i></button>
                     <button class="btn btn-danger" onclick="hapus()"><i class="fa fa-trash"></i></button>

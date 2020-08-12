@@ -52,7 +52,7 @@
 					@endif
 
 					<div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="username" placeholder="Email" autocomplete="off">
+						<input class="input100" type="text" name="username" placeholder="NIP Pegawai" autocomplete="off">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>

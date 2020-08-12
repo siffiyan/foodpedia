@@ -84,7 +84,7 @@
   <main role="main" class="inner cover typewriter">
     <h1 class="cover-heading">PRO DEV Management System</h1>
     <br>
-    <p class="lead">Lorem Ipsum adalah contoh teks atau dummy dalam industri percetakan dan penataan huruf atau typesetting. Lorem Ipsum telah menjadi standar contoh teks sejak tahun 1500an,</p>
+    {{-- <p class="lead">Lorem Ipsum adalah contoh teks atau dummy dalam industri percetakan dan penataan huruf atau typesetting. Lorem Ipsum telah menjadi standar contoh teks sejak tahun 1500an,</p> --}}
     <p class="lead">
     <a href="{{'/auth/login'}}" class="btn btn-lg btn-secondary">LOGIN NOW</a>
     </p>
