@@ -21,14 +21,25 @@ Route::get('/auth/login', 'AuthController@login');
 Route::post('/auth/login_action', 'AuthController@login_action');
 
 Route::prefix('admin')->group(function () {
+
     Route::get('/dashboard', 'SuperAdmin\DashboardController@index');
     Route::get('/manajemen_user', 'SuperAdmin\ManajemenUserController@index');
     Route::post('/manajemen_user/store', 'SuperAdmin\ManajemenUserController@store');
 
-    Route::view('/project','admin.project.index');
-    Route::view('/project/add','admin.project.add_project');
-    Route::view('/project/vendor','admin.project.vendor');
+    Route::get('/project','SuperAdmin\ProjectController@index');
+    Route::get('/project/create','SuperAdmin\ProjectController@create');
+    Route::post('/project','SuperAdmin\ProjectController@store');
+
+
     Route::view('/project/termin','admin.project.termin');
+
+
+    Route::get('/project/vendor','SuperAdmin\VendorController@index');
+    Route::post('/project/vendor','SuperAdmin\VendorController@store');
+    Route::get('/project/vendor/{id}/edit','SuperAdmin\VendorController@edit');
+    Route::put('/project/vendor/edit_action','SuperAdmin\VendorController@update');
+    Route::delete('/project/vendor/destroy','SuperAdmin\VendorController@destroy');
+    
 });
 
 

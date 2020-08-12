@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-12">
-        <a href="/admin/project/add" class="btn btn-primary mb-3" id="btn_modal_add"><i class="fa fa-plus-square"></i> &nbsp; Add Project</a>
+        <a href="/admin/project/create" class="btn btn-primary mb-3" id="btn_modal_add"><i class="fa fa-plus-square"></i> &nbsp; Add Project</a>
         <div class="card">
         <div class="card-header">
             <h3 class="card-title">Data Project</h3>
@@ -26,22 +26,24 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>30/20/BA0001</td>
-                <td>Pemasangan AC</td>
-                <td>28 Juni 2020</td>
-                <td>29 Juli 2020</td>
-                <td>Rp. 30.000.000</td>
+            @foreach($project as $r)
+             <tr>
+                <td>{{$r->no_kontrak}}</td>
+                <td>{{$r->nama_project}}</td>
+                <td>{{$r->tgl_mulai}}</td>
+                <td>{{$r->tgl_akhir}}</td>
+                <td>{{$r->nilai_project}}</td>
                 <td class="text-center">
                     <span class="badge badge-info text-white" style="cursor:pointer">on progress</span>
                 </td>
                 <td>
-                    <button class="btn btn-info btn-sm" onclick="edit()"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-success btn-sm" onclick="edit()"><i class="fa fa-handshake"></i></button>
-                    <button class="btn btn-success btn-sm" onclick="edit()"><i class="fa fa-envelope"></i></button>
-                    <button class="btn btn-danger btn-sm" onclick="hapus()"><i class="fa fa-trash"></i></button>  
+                    <button class="btn btn-info btn-sm" onclick="edit({{$r->id_kontrak}})"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-success btn-sm" onclick="edit({{$r->id_kontrak}})"><i class="fa fa-handshake"></i></button>
+                    <button class="btn btn-success btn-sm" onclick="edit({{$r->id_kontrak}})"><i class="fa fa-envelope"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="hapus({{$r->id_kontrak}})"><i class="fa fa-trash"></i></button>  
                 </td>
             </tr>
+            @endforeach
             </tbody>
             </table>
         </div>
