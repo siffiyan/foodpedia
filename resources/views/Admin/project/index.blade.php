@@ -22,6 +22,7 @@
                 <th>Tanggal Selesai</th>
                 <th>Nilai Project</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -33,6 +34,12 @@
                 <td>Rp. 30.000.000</td>
                 <td class="text-center">
                     <span class="badge badge-info text-white" style="cursor:pointer">on progress</span>
+                </td>
+                <td>
+                    <button class="btn btn-info btn-sm" onclick="edit()"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-success btn-sm" onclick="edit()"><i class="fa fa-handshake"></i></button>
+                    <button class="btn btn-success btn-sm" onclick="edit()"><i class="fa fa-envelope"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="hapus()"><i class="fa fa-trash"></i></button>  
                 </td>
             </tr>
             </tbody>

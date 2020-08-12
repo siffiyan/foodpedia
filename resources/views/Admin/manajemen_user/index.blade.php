@@ -53,8 +53,8 @@
                     </td>
                     <td class="text-center">{{$r->id_user_level}}</td>
                      <td class="text-center">
-                    <button class="btn btn-info" onclick="edit()"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-danger" onclick="hapus()"><i class="fa fa-trash"></i></button>
+                    <button class="btn btn-info btn-sm" onclick="edit()"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="hapus()"><i class="fa fa-trash"></i></button>
                 </td>
                 </tr>
                 @endforeach
