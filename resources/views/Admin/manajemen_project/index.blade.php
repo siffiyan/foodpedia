@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-12">
-        <a href="/admin/project/create" class="btn btn-primary mb-3" id="btn_modal_add"><i class="fa fa-plus-square"></i> &nbsp; Add Project</a>
+        <a href="/admin/manajemen_project/create" class="btn btn-primary mb-3" id="btn_modal_add"><i class="fa fa-plus-square"></i> &nbsp; Add Project</a>
         <div class="card">
         <div class="card-header">
             <h3 class="card-title">Data Project</h3>

@@ -26,19 +26,17 @@ Route::prefix('admin')->group(function () {
     Route::get('/manajemen_user', 'SuperAdmin\ManajemenUserController@index');
     Route::post('/manajemen_user/store', 'SuperAdmin\ManajemenUserController@store');
 
-    Route::get('/project','SuperAdmin\ProjectController@index');
-    Route::get('/project/create','SuperAdmin\ProjectController@create');
-    Route::post('/project','SuperAdmin\ProjectController@store');
+    Route::get('/manajemen_project','SuperAdmin\ProjectController@index');
+    Route::get('/manajemen_project/create','SuperAdmin\ProjectController@create');
+    Route::post('/manajemen_project','SuperAdmin\ProjectController@store');
 
+    Route::view('/manajemen_project/termin','admin.manajemen_.termin');
 
-    Route::view('/project/termin','admin.project.termin');
-
-
-    Route::get('/project/vendor','SuperAdmin\VendorController@index');
-    Route::post('/project/vendor','SuperAdmin\VendorController@store');
-    Route::get('/project/vendor/{id}/edit','SuperAdmin\VendorController@edit');
-    Route::put('/project/vendor/edit_action','SuperAdmin\VendorController@update');
-    Route::delete('/project/vendor/destroy','SuperAdmin\VendorController@destroy');
+    Route::get('/manajemen_list/vendor','SuperAdmin\VendorController@index');
+    Route::post('/manajemen_list/vendor','SuperAdmin\VendorController@store');
+    Route::get('/manajemen_list/vendor/{id}/edit','SuperAdmin\VendorController@edit');
+    Route::put('/manajemen_list/vendor/edit_action','SuperAdmin\VendorController@update');
+    Route::delete('/manajemen_list/vendor/destroy','SuperAdmin\VendorController@destroy');
     
 });
 

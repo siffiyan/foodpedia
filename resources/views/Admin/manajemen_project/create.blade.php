@@ -102,12 +102,12 @@
                     </div>
                 </div>
 
-                <div style="float: right; ">
-                    <button class="btn btn-primary">Submit</button>
-                </div>
                 <div id="append_termin">
                 </div>
+
+                <button class="btn btn-primary btn-block mt-3">Submit</button>
             </div>
+            
         </div>
     </div>
 </div>
