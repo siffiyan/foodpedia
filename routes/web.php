@@ -27,6 +27,7 @@ Route::prefix('admin')->group(function () {
 
     Route::view('/project','admin.project.index');
     Route::view('/project/add','admin.project.add_project');
+    Route::view('/project/pnpp_vendor','admin.project.pnpp_vendor');
     Route::view('/project/vendor','admin.project.vendor');
     Route::view('/project/termin','admin.project.termin');
 });
