@@ -19,7 +19,7 @@ class PenppVendorController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.management_project.penpp_vendor');
     }
 
     /**
@@ -76,7 +76,9 @@ class PenppVendorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // $input = ::except('_method', '_token');
+        Penpp_vendor::where('id_penpp_vendor', $id)->update($request->except('_method', '_token'));
+        return redirect()->back()->with('msg','data Penpp Vendor berhasil diedit');
     }
 
     /**
