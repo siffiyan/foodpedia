@@ -5,6 +5,7 @@
 @section('content')
 
 <div class="row">
+<form action="{{route('penpp_vendor.update',$penpp->id_kontrak)}}">
     {{-- BERITA ACARA PENAWARAN --}}
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="card card-info">
@@ -237,9 +238,10 @@
             <!-- /.card-body -->
         </div>
     </div>
+</form>
 </div>
 
-<button class="btn btn-success btn-block mb-3 ">Save Changes</button>
+<button type="submit" class="btn btn-success btn-block mb-3 ">Save Changes</button>
 
 @endsection
 

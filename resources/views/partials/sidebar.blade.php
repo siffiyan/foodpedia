@@ -34,7 +34,7 @@
             </a>
           </li>
            <li class="nav-item">
-            <a href="/admin/manajemen_user" class="nav-link">
+            <a href="/admin/management_user" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Manajemen User
@@ -51,13 +51,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin/manajemen_project" class="nav-link">
+                <a href="/admin/management_project" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Project</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/manajemen_project/termin" class="nav-link">
+                <a href="/admin/management_project/termin" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Termin</p>
                 </a>
@@ -74,7 +74,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin/manajement_list" class="nav-link">
+                <a href="/admin/management_master/vendor" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Vendor</p>
                 </a>

@@ -19,12 +19,12 @@ class ProjectController extends Controller
 
 	public function index(){	
 		$data['project'] = Project::all();
-		return view('admin.manajemen_project.index',$data);
+		return view('admin.management_project.index',$data);
 	}
 
 	public function create(){
 		$data['vendor'] = Vendor::all();
-		return view('admin.manajemen_project.create',$data);
+		return view('admin.management_project.create',$data);
 	}
 
 	public function store(Request $request){
@@ -63,7 +63,7 @@ class ProjectController extends Controller
 			$bulan_akhir_use =  date('m', strtotime("+1 months", strtotime($date_akhir_use))); 
 		}
 
-		return redirect('/admin/manajemen_project')->with('msg','Data project berhasil ditambahkan');
+		return redirect('/admin/management_project')->with('msg','Data project berhasil ditambahkan');
 
 	}
 

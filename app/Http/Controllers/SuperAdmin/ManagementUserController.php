@@ -12,14 +12,14 @@ use Auth;
 use App\Models\UserLevel;
 use App\Models\Users;
 
-class ManajemenUserController extends Controller
+class ManagementUserController extends Controller
 {
 
 	public function index(){
 
 		$data['level'] = UserLevel::all();
 		$data['user'] = Users::all();
-		return view('admin.manajemen_user.index',$data);
+		return view('admin.management_user.index',$data);
 
 	}
 
@@ -28,7 +28,7 @@ class ManajemenUserController extends Controller
 		$data = $request->all();
 		$data['password_user'] = Hash::make($request->password_user);
 		
-		return redirect('/admin/manajemen_user')->with('msg','data berhasil ditambahkan');
+		return redirect('/admin/management_user')->with('msg','data berhasil ditambahkan');
 
 	}
 
@@ -45,7 +45,7 @@ class ManajemenUserController extends Controller
 		$data = Users::findOrFail($id);
 
 		$data->update($request->all());
-		return redirect('/admin/manajemen_user')->with('msg','data berhasil edit');
+		return redirect('/admin/management_user')->with('msg','data berhasil edit');
 
 	}
 
@@ -56,7 +56,7 @@ class ManajemenUserController extends Controller
     	$data = Users::findOrFail($id);
     	$data->delete();
 
-    	return redirect('/admin/manajemen_user')->with('msg','data berhasil edit');
+    	return redirect('/admin/management_user')->with('msg','data berhasil edit');
 
     }
 

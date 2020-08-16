@@ -7,22 +7,22 @@
 <div class="row">
     <div class="col-12">
 
-@if ($message = Session::get('msg'))
-<div class="alert alert-success alert-block">
-    <button type="button" class="close" data-dismiss="alert">×</button>    
-    <strong>{{ $message }}</strong>
-</div>
-@endif
+    @if ($message = Session::get('msg'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>    
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
         <button class="btn btn-primary mb-3" id="btn_modal_add"><i class="fa fa-plus-square"></i> &nbsp; Add User</button>
         <div class="card">
@@ -68,65 +68,65 @@
     <!-- /.col -->
 </div>
 
-<form action="/admin/manajemen_user/store" method="post">
+<form action="/admin/management_user/store" method="post">
     {{csrf_field()}}
-<div class="modal fade" id="modal_add">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title">Modal Add User</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label>USER LEVEL</label>
-                        <select class="form-control" name="id_user_level" id="user_level_list">
-                            @foreach($level as $r)
-                            <option value="{{$r->id_user_level}}">{{$r->nama_user_level}}</option>
-                            @endforeach
-                        </select>
+    <div class="modal fade" id="modal_add">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Add User</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>USER LEVEL</label>
+                            <select class="form-control" name="id_user_level" id="user_level_list">
+                                @foreach($level as $r)
+                                <option value="{{$r->id_user_level}}">{{$r->nama_user_level}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>NAMA</label>
+                            <input type="text" class="form-control" required name="nama_user" id="nama_user"></input>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label>PASSWORD</label>
+                            <input type="password" class="form-control" required name="password_user" id="password_user"></input>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>STATUS</label>
+                            <select class="form-control" name="isactive">
+                                <option value="1">ACTIVE</option>
+                                <option value="0">INACTIVE</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label>NAMA</label>
-                        <input type="text" class="form-control" required name="nama_user" id="nama_user"></input>
-                    </div>
-                </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="form-group">
-                        <label>PASSWORD</label>
-                        <input type="password" class="form-control" required name="password_user" id="password_user"></input>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>STATUS</label>
-                        <select class="form-control" name="isactive">
-                            <option value="1">ACTIVE</option>
-                            <option value="0">INACTIVE</option>
-                        </select>
-                    </div>
-                </div>
             </div>
+            <!-- /.modal-content -->
         </div>
-        <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-        </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
 </form>
 
 <div class="modal fade" id="modal_edit">

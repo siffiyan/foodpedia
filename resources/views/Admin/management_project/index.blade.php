@@ -6,21 +6,21 @@
 
 <div class="row">
     <div class="col-12">
-        <a href="/admin/manajemen_project/create" class="btn btn-primary mb-3" id="btn_modal_add"><i class="fa fa-plus-square"></i> &nbsp; Add Project</a>
+        <a href="/admin/management_project/create" class="btn btn-primary mb-3" id="btn_modal_add"><i class="fa fa-plus-square"></i> &nbsp; Add Project</a>
         <div class="card">
         <div class="card-header">
             <h3 class="card-title">Data Project</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="example1" class="table table-bordered table-striped projects">
             <thead>
             <tr>
-                <th>No Kontrak</th>
+                <th>#</th>
                 <th>Nama Project</th>
-                <th>Tanggal Mulai</th>
                 <th>Tanggal Selesai</th>
                 <th>Nilai Project</th>
+                <th>Tagihan</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -28,18 +28,32 @@
             <tbody>
             @foreach($project as $r)
              <tr>
-                <td>{{$r->no_kontrak}}</td>
-                <td>{{$r->nama_project}}</td>
-                <td>{{$r->tgl_mulai}}</td>
-                <td>{{$r->tgl_akhir}}</td>
-                <td>{{$r->nilai_project}}</td>
+                <td>{{$loop->iteration}}</td>
+                <td>
+                    <a><b>{{$r->nama_project}}</b></a>
+                    <br/>
+                    <small>
+                        Created {{date('d F Y', strtotime($r->tgl_mulai))}}
+                    </small>
+                </td>
+                <td>{{date('d F Y', strtotime($r->tgl_akhir))}}</td>
+                <td>{{"Rp " . number_format($r->nilai_project,2,',','.')}}</td>
+                <td class="project_progress">
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: 57%">
+                        </div>
+                    </div>
+                    <small>
+                        57% Complete
+                    </small>
+                </td>
                 <td class="text-center">
                     <span class="badge badge-info text-white" style="cursor:pointer">on progress</span>
                 </td>
                 <td>
                     <button class="btn btn-info btn-sm" onclick="edit({{$r->id_kontrak}})"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-success btn-sm" onclick="edit({{$r->id_kontrak}})"><i class="fa fa-handshake"></i></button>
-                    <button class="btn btn-success btn-sm" onclick="edit({{$r->id_kontrak}})"><i class="fa fa-envelope"></i></button>
+                    <button class="btn btn-success btn-sm" onclick="termin({{$r->id_kontrak}})"><i class="fa fa-handshake"></i></button>
+                    <a href="{{route('penpp_vendor.edit',$r->id_kontrak)}}"><button class="btn btn-warning btn-sm text-white"><i class="fa fa-envelope"></i></button></a>
                     <button class="btn btn-danger btn-sm" onclick="hapus({{$r->id_kontrak}})"><i class="fa fa-trash"></i></button>  
                 </td>
             </tr>

@@ -61,7 +61,7 @@
     <!-- /.col -->
 </div>
 
-<form action="/admin/project/vendor" method="post">
+<form action="/admin/management_master/vendor" method="post">
     {{csrf_field()}}
     <div class="modal fade" id="modal_add">
         <div class="modal-dialog">
@@ -111,7 +111,7 @@
     </div>
 </form>
 
-<form action="/admin/project/vendor/edit_action" method="post">
+<form action="/admin/management_master/vendor/edit_action" method="post">
     <input type="hidden" name="_method" value="put">
     {{csrf_field()}}
 <div class="modal fade" id="modal_edit">
@@ -163,7 +163,7 @@
 </div>
 </form>
 
-<form action="/admin/project/vendor/destroy" method="post">
+<form action="/admin/management_master/vendor/destroy" method="post">
 {{csrf_field()}}
 <input type="hidden" name="_method" value="delete">
 <div class="modal fade" id="delete_modal" role="dialog" style="display: none;" aria-hidden="true">
@@ -200,7 +200,7 @@
 
     function edit(id){
         $.ajax({
-            url : '/admin/project/vendor/'+id+'/edit',
+            url : '/admin/management_master/vendor/'+id+'/edit',
             type:'get',
             dataType:'json',
             success:function(response){
