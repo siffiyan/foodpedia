@@ -4,7 +4,7 @@
 
 @section('content')
 
-<form action="/admin/project" method="post">
+<form action="/admin/manajemen_project" method="post">
     {{csrf_field()}}
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
