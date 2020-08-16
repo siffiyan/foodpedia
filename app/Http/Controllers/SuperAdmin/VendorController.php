@@ -19,13 +19,13 @@ class VendorController extends Controller
 	public function index(){
 
 		$data['vendor'] = Vendor::all();
-		return view('admin.manajement_list.vendor.index',$data);
+		return view('admin.management_master.vendor.index',$data);
 	}
 
 	public function store(Request $request){
 
 		Vendor::create($request->all());
-		return redirect('/admin/manajement_list/vendor')->with('msg','Data vendor berhasil ditambahkan');
+		return redirect('/admin/management_master/vendor')->with('msg','Data vendor berhasil ditambahkan');
 
 	}
 
@@ -39,7 +39,7 @@ class VendorController extends Controller
 		$id = $request->id_vendor_edit;
 		$data = Vendor::findOrFail($id);
 		$data->update($request->except(['id_vendor_edit']));
-		return redirect('/admin/manajement_list/vendor')->with('msg','Data vendor berhasil diedit');
+		return redirect('/admin/management_master/vendor')->with('msg','Data vendor berhasil diedit');
 
 	}
 
@@ -47,7 +47,7 @@ class VendorController extends Controller
 
 		$id = $request->id;
 		Vendor::destroy($id);
-		return redirect('/admin/manajement_list/vendor')->with('msg','Data vendor berhasil dihapus');
+		return redirect('/admin/management_master/vendor')->with('msg','Data vendor berhasil dihapus');
 	}
 
 }
