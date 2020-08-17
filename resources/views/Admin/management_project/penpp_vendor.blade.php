@@ -23,6 +23,21 @@
 @endif
 
 <div class="row">
+    <div class="col-md-12">
+        <!-- Widget: user widget style 1 -->
+        <div class="card card-widget widget-user">
+        <!-- Add the bg color to the header using any of the bg-* classes -->
+        <div class="widget-user-header bg-white">
+            <h3 class="widget-user-desc"><b>{{$project->nama_project}}</b></h3>
+            <h6>{{date('d F Y', strtotime($project->tgl_mulai))}} - {{date('d F Y', strtotime($project->tgl_akhir))}}</h6>
+            <small>{{$project->no_kontrak}} | {{$project->jenis_pengadaan}} | {{"Rp " . number_format($project->nilai_project,2,',','.')}} | {{$project->no_srt_penunjukan_penyedia_jasa}}</small>
+        </div>
+        </div>
+        <!-- /.widget-user -->
+    </div>
+</div>
+
+<div class="row">
     {{-- BERITA ACARA PENAWARAN --}}
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="card @if(empty($penpp->tgl_ba_penawaran) || empty($penpp->no_ba_penawaran)) card-danger @else card-info @endif">
