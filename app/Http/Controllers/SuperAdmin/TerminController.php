@@ -4,14 +4,10 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use App\Models\Penpp_vendor;
-use App\Models\Project;
+use App\Models\Termin;
 
-class PenppVendorController extends Controller
+class TerminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +16,12 @@ class PenppVendorController extends Controller
      */
     public function index()
     {
-        return view('admin.management_project.penpp_vendor');
+        $data['termin'] = DB::table('termins')
+            ->leftJoin('projects', 'termins.id_kontrak', '=', 'projects.id_kontrak')
+            ->select('termins.*', 'projects.nama_project')
+            ->get();
+
+        return view('/admin/management_project/view_termin',$data);
     }
 
     /**
@@ -52,7 +53,9 @@ class PenppVendorController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['termin'] = DB::table('termins')->where('id_kontrak', $id)->get();
+        $data['project'] = DB::table('projects')->where('id_kontrak', $id)->first();
+        return view('/admin/management_project/termin',$data);
     }
 
     /**
@@ -63,10 +66,8 @@ class PenppVendorController extends Controller
      */
     public function edit($id)
     {
-        $data['penpp'] = Penpp_Vendor::find($id);
-        $data['project'] = Project::find($id);
-
-        return view('admin.management_project.penpp_vendor',$data);
+        $data['termin'] = DB::table('termins')->where('id_termin', $id)->first();
+        return $data;
     }
 
     /**
@@ -78,8 +79,7 @@ class PenppVendorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Penpp_vendor::where('id_penpp_vendor', $id)->update($request->except('_method', '_token'));
-        return redirect()->back()->with('msg','data Penpp Vendor berhasil diedit');
+        //
     }
 
     /**

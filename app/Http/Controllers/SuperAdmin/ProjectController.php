@@ -19,6 +19,7 @@ class ProjectController extends Controller
 
 	public function index(){	
 		$data['project'] = Project::all();
+		$data['termin'] = Termin::all();
 		return view('admin.management_project.index',$data);
 	}
 

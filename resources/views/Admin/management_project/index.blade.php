@@ -21,8 +21,8 @@
                 <th>Tanggal Selesai</th>
                 <th>Nilai Project</th>
                 <th>Tagihan</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -50,9 +50,9 @@
                 <td class="text-center">
                     <span class="badge badge-info text-white" style="cursor:pointer">on progress</span>
                 </td>
-                <td>
+                <td class="text-center">
                     <button class="btn btn-info btn-sm" onclick="edit({{$r->id_kontrak}})"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-success btn-sm" onclick="termin({{$r->id_kontrak}})"><i class="fa fa-handshake"></i></button>
+                    <a href="{{route('termin.show',$r->id_kontrak)}}"><button class="btn btn-success btn-sm"><i class="fa fa-handshake"></i></button></a>
                     <a href="{{route('penpp_vendor.edit',$r->id_kontrak)}}"><button class="btn btn-warning btn-sm text-white"><i class="fa fa-envelope"></i></button></a>
                     <button class="btn btn-danger btn-sm" onclick="hapus({{$r->id_kontrak}})"><i class="fa fa-trash"></i></button>  
                 </td>
@@ -97,6 +97,7 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 
 <div class="modal fade" id="modal_termin">
     <div class="modal-dialog modal-lg">
@@ -229,6 +230,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
 <!-- /.modal -->
 
 @endsection
@@ -281,6 +283,7 @@
         $('#modal_termin_edit').modal('show');
         
     }
+
 </script>    
 @endsection
 

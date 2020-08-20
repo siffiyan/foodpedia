@@ -31,7 +31,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/management_project','SuperAdmin\ProjectController@store');
     Route::get('/management_project/get_termin/{id}','SuperAdmin\ProjectController@get_termin_by_project');
 
-    Route::view('/management_project/termin','admin.management_project.termin');
+    Route::resource('termin','SuperAdmin\TerminController');
 
     //Route::view('/management_project/pnpp_vendor','admin.management_project.pnpp_vendor');
     Route::resource('penpp_vendor', 'SuperAdmin\PenppVendorController');
