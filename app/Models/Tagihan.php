@@ -8,5 +8,4 @@ class Tagihan extends Model
 {
     protected $guarded = [];
     public $timestamps = false;
-    protected $primaryKey = "no_tagihan";
 }
