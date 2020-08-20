@@ -20,7 +20,7 @@ class PenppVendorController extends Controller
      */
     public function index()
     {
-        return view('admin.management_project.penpp_vendor');
+        return view('pengadaan.management_project.project.penpp_vendor');
     }
 
     /**
@@ -66,7 +66,7 @@ class PenppVendorController extends Controller
         $data['penpp'] = Penpp_Vendor::find($id);
         $data['project'] = Project::find($id);
 
-        return view('admin.management_project.penpp_vendor',$data);
+        return view('pengadaan.management_project.project.penpp_vendor',$data);
     }
 
     /**

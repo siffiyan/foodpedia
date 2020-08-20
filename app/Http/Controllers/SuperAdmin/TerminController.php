@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Termin;
+use App\Models\Project;
 
 class TerminController extends Controller
 {
@@ -21,7 +22,7 @@ class TerminController extends Controller
             ->select('termins.*', 'projects.nama_project')
             ->get();
 
-        return view('/admin/management_project/view_termin',$data);
+        return view('pengadaan.management_project.termin.index',$data);
     }
 
     /**
@@ -55,7 +56,7 @@ class TerminController extends Controller
     {
         $data['termin'] = DB::table('termins')->where('id_kontrak', $id)->get();
         $data['project'] = DB::table('projects')->where('id_kontrak', $id)->first();
-        return view('/admin/management_project/termin',$data);
+        return view('pengadaan.management_project.project.termin',$data);
     }
 
     /**
