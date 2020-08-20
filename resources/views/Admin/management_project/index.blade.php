@@ -117,19 +117,8 @@
                     <th>No Tagihan</th>
                     <th>Action</th>
                 </thead>
-                <tbody>
-                    <td>Bulan 1</td>
-                    <td>25 Juni 2020</td>
-                    <td>25 Juli 2020</td>
-                    <td>
-                        <span class="badge badge-danger">hello</span>
-                    </td>
-                    <td>
-                        10/02.JUNI/2020
-                    </td>
-                    <td>
-                        <button class="btn btn-info btn-sm" onclick="edit_termin()"> <i class="fa fa-edit"></i> </button>
-                    </td>
+                <tbody id="tabel_termin">
+                   
                 </tbody>
             </table>
         </div>
@@ -253,13 +242,44 @@
         });
     });   
 
-    function termin(){
-        $('#modal_termin').modal('show');
+    function termin(id){
+        $.ajax({
+            url:'/admin/management_project/get_termin/'+id,
+            type:'get',
+            dataType:'json',
+            success:function(data){
+                $('#tabel_termin').empty();
+                $('#modal_termin').modal('show');
+
+                $.each(data,function(i,value){
+                    $('#tabel_termin').append(`
+                        <tr>
+                        <td>`+(i+1)+`</td>
+                        <td>`+value.tgl_mulai+`</td>
+                        <td>`+value.tgl_akhir+`</td>
+                        <td><span class="badge badge-danger">hello</span></td>
+                        <td>`+value.no_tagihan+`</td>
+                        <td>
+                        <button class="btn btn-info btn-sm" onclick="edit_termin(`+value.id_termin+`)"> <i class="fa fa-edit"></i> </button>
+                        </td>
+                        </tr>
+
+                    `);
+                });
+                 
+            },
+            error:function(){
+                alert('error');
+            }
+
+        })
     }
 
-    function edit_termin(){
+    function edit_termin(id){
+
         $('#modal_termin').modal('hide');
         $('#modal_termin_edit').modal('show');
+        
     }
 </script>    
 @endsection

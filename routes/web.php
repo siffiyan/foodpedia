@@ -29,6 +29,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/management_project','SuperAdmin\ProjectController@index');
     Route::get('/management_project/create','SuperAdmin\ProjectController@create');
     Route::post('/management_project','SuperAdmin\ProjectController@store');
+    Route::get('/management_project/get_termin/{id}','SuperAdmin\ProjectController@get_termin_by_project');
 
     Route::view('/management_project/termin','admin.management_project.termin');
 
