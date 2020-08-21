@@ -1,17 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\SuperAdmin;
+namespace App\Http\Controllers\KoorKeuangan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB;
-use App\Models\Penpp_vendor;
-use App\Models\Project;
 
-class PenppVendorController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +14,7 @@ class PenppVendorController extends Controller
      */
     public function index()
     {
-        return view('pengadaan.management_project.project.penpp_vendor');
+        return view('koor_keuangan.index');
     }
 
     /**
@@ -63,10 +57,7 @@ class PenppVendorController extends Controller
      */
     public function edit($id)
     {
-        $data['penpp'] = Penpp_Vendor::find($id);
-        $data['project'] = Project::find($id);
-
-        return view('pengadaan.management_project.project.penpp_vendor',$data);
+        //
     }
 
     /**
@@ -78,8 +69,7 @@ class PenppVendorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Penpp_vendor::where('id_penpp_vendor', $id)->update($request->except('_method', '_token'));
-        return redirect()->back()->with('msg','data Penpp Vendor berhasil diedit');
+        //
     }
 
     /**

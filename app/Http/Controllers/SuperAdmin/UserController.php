@@ -52,7 +52,8 @@ class UserController extends Controller
 			'nama_user' => $request->nama_user,
 			'isactive' => $request->isactive,
 			'id_user_level' => $request->id_user_level,
-			'password_user' => Hash::make($request->password_user),
+            'password_user' => $request->password_user,
+            // Hash::make($request->password_user)
 		]);
 		
 		return redirect('/admin/management_user')->with('msg','data berhasil ditambahkan');
@@ -92,9 +93,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $users = Users::findOrFail($request->id_user);
+        $users->nama_user = $request->nama_user;
+        $users->id_user_level = $request->id_user_level;
+        $users->password_user = $request->password_user;
+        $users->update();
+
+        return redirect('/admin/management_user')->with('msg','data berhasil diedit');
     }
 
     /**
@@ -107,7 +114,7 @@ class UserController extends Controller
     {   
         DB::table('users')->where('id_user', $request->id)->delete();
 
-        return redirect('/admin/management_user')->with('msg','data berhasil ditambahkan');
+        return redirect('/admin/management_user')->with('msg','data berhasil dihapus');
     }
 
     public function inactive(Request $request, $id)
@@ -126,6 +133,6 @@ class UserController extends Controller
         ->where('id_user', $id)
         ->update(['isactive' => 1]);
 
-        return redirect('/admin/management_user')->with('msg','data berhasil di Non-aktifkan');
+        return redirect('/admin/management_user')->with('msg','data berhasil di Aktifkan');
     }
 }

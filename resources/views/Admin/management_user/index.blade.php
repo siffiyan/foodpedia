@@ -148,62 +148,66 @@
     </div>
 </form>
 
-<div class="modal fade" id="modal_edit">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title">Modal Add User</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label>NIP KARYAWAN</label>
-                        <input type="number" class="form-control" required name="id_user" id="id_user">
+<form action="/admin/management_user/update" method="post">
+    @method('put')
+    @csrf
+    <div class="modal fade" id="modal_edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Add User</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>NIP KARYAWAN</label>
+                            <input type="number" class="form-control" required name="id_user" id="id_user" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>USER LEVEL</label>
+                            <select class="form-control" name="id_user_level" id="id_user_level">
+                                @foreach($level as $r)
+                                    <option value="{{$r->id_user_level}}">{{$r->nama_user_level}}</option>
+                                    @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>NAMA</label>
+                            <input type="text" class="form-control" name="nama_user" id="nama_user"></input>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>PASSWORD</label>
+                            <input type="password" class="form-control" name="password_user" id="password_user"></input>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label>USER LEVEL</label>
-                        <select class="form-control" name="id_user_level" id="id_user_level">
-                            @foreach($level as $r)
-                                <option value="{{$r->id_user_level}}">{{$r->nama_user_level}}</option>
-                                @endforeach
-                        </select>
-                    </div>
-                </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label>NAMA</label>
-                        <input type="text" class="form-control" name="nama_user" id="nama_user"></input>
-                    </div>
-                </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label>PASSWORD</label>
-                        <input type="password" class="form-control" name="password_user" id="password_user"></input>
-                    </div>
-                </div>
-            </div>
+            <!-- /.modal-content -->
         </div>
-        <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-        </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
+</form>
 
 <div class="modal fade" id="delete_modal" role="dialog" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -280,7 +284,6 @@
             type:'get',
             dataType:'json',
             success:function(response){
-                console.log(id)
                 $('#id_user').val(id);
                 $('#id_user_level').val(response.user.id_user_level);
                 $('#nama_user').val(response.user.nama_user);

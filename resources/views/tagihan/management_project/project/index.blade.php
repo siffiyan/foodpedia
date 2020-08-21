@@ -21,7 +21,6 @@
             </div>
         @endif
 
-        <a href="{{route('project_pengadaan.create')}}" class="btn btn-primary mb-3" id="btn_modal_add"><i class="fa fa-plus-square"></i> &nbsp; Add Project</a>
         <div class="card">
         <div class="card-header">
             <h3 class="card-title">Data Project</h3>
@@ -66,10 +65,7 @@
                     <span class="badge badge-info text-white" style="cursor:pointer">on progress</span>
                 </td>
                 <td class="text-center">
-                    <button class="btn btn-info btn-sm" onclick="edit({{$r->id_kontrak}})"><i class="fa fa-edit"></i></button>
-                    <a href="{{route('termin_pengadaan.show',$r->id_kontrak)}}"><button class="btn btn-success btn-sm"><i class="fa fa-handshake"></i></button></a>
-                    <a href="{{route('penpp_vendor.edit',$r->id_kontrak)}}"><button class="btn btn-warning btn-sm text-white"><i class="fa fa-envelope"></i></button></a>
-                    <button class="btn btn-danger btn-sm" onclick="hapus({{$r->id_kontrak}})"><i class="fa fa-trash"></i></button>  
+                    <a href="{{route('termin_tagihan.show',$r->id_kontrak)}}"><button class="btn btn-success btn-sm"><i class="fa fa-handshake"></i></button></a>
                 </td>
             </tr>
             @endforeach

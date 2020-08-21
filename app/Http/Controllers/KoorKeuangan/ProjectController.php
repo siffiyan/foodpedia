@@ -1,14 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\SuperAdmin;
+namespace App\Http\Controllers\KoorKeuangan;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use App\Models\Termin;
-use App\Models\Project;
 
-class TerminController extends Controller
+use App\Models\vendor;
+use App\Models\project;
+use App\Models\Termin;
+use App\Models\Tagihan;
+
+
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +23,9 @@ class TerminController extends Controller
      */
     public function index()
     {
-        $data['termin'] = DB::table('termins')
-            ->leftJoin('projects', 'termins.id_kontrak', '=', 'projects.id_kontrak')
-            ->select('termins.*', 'projects.nama_project')
-            ->get();
-
-        return view('pengadaan.management_project.termin.index',$data);
+		$data['project'] = Project::all();
+		$data['termin'] = Termin::all();
+		return view('koor_keuangan.management_project.project.index',$data);
     }
 
     /**
@@ -54,9 +57,7 @@ class TerminController extends Controller
      */
     public function show($id)
     {
-        $data['termin'] = DB::table('termins')->where('id_kontrak', $id)->get();
-        $data['project'] = DB::table('projects')->where('id_kontrak', $id)->first();
-        return view('pengadaan.management_project.project.termin',$data);
+        //
     }
 
     /**

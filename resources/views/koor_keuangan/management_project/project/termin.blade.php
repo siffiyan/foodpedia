@@ -41,7 +41,7 @@
                 <tbody>
                     @foreach ($termin as $item)
                     <tr>
-                        <td>{{$item->no_termin}}</td>
+                        <td>{{"Bulan " . $item->no_termin}}</td>
                         <td>{{date('d F Y', strtotime($item->tgl_mulai))}}</td>
                         <td>{{date('d F Y', strtotime($item->tgl_akhir))}}</td>
                         <td class="text-center">
@@ -145,9 +145,8 @@
     });  
 
     function edit_termin(id){
-        var id = 110;
         $.ajax({
-            url: '/pengadaan/termin_pengadaan/' + id + '/edit',
+            url:'/keuangan/termin_keuangan/' + id +'/edit',
             type:'get',
             dataType:'json',
             success:function(response){
