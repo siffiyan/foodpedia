@@ -20,27 +20,28 @@ class AuthController extends Controller
     }
 
     public function login_action(Request $request){
-
-
         $user= $request->username;
         $password = $request->password;
-
-        //$user = User::where([['username',$user],['password',$password]])->first();
         
-        $users = DB::table('users as a')
-            ->leftJoin('user_levels as b', 'a.id_user_level', '=', 'b.id_user_level')
-            ->where([['nama_user',$user],['password_user',$password]],1)
+        $users = DB::table('users')
+            ->where([['nama_user',$user],['password_user',$password]])
             ->first();
 
         if($users) {
             if($users->isactive > 0){
+                Session::put('id_user',$users->id_user);
+                Session::put('id_user_level',$users->id_user_level);
                 Session::put('nama_user',$users->nama_user);
                 Session::put('login',TRUE);
-                if($users->nama_user_level == 'Super Admin'){
+                if($users->id_user_level == '1'){
                     return redirect('/admin/dashboard')->with('msg','Anda berhasil Login sebagai Admin');
-                }else{
-                    return redirect('/admin/dashboard')->with('msg','Anda berhasil Login');
-                }       
+                }else if($users->id_user_level == '2'){
+                    return redirect('/pengadaan/dashboard')->with('msg','Anda berhasil Login sebagai Pengadaan'); 
+                }else if($users->id_user_level == '3'){
+                    return redirect('/keuangan/dashboard')->with('msg','Anda berhasil Login sebagai Koordinator Keuangan');
+                }else if($users->id_user_level ==  '4'){
+                    return redirect('/tagihan/dashboard')->with('msg','Anda berhasil Login sebagai PIC Tagihan');
+                }     
             }else{
                 return redirect('/auth/login')->with('error','akun anda tidak aktif hubungi admin untuk activated');
             }
@@ -48,6 +49,17 @@ class AuthController extends Controller
         else{
             return redirect('/auth/login')->with('error','email / password anda salah');
         }
-
     }
+
+    public function logout(Request $request){
+
+		$request->session()->forget('email');
+		$request->session()->forget('id');
+		$request->session()->forget('nama');
+        $request->session()->forget('login');
+        $request->session()->flush();
+        
+	    return redirect('/auth/login')->with('success','Anda berhasil logout !');
+
+	}
 }

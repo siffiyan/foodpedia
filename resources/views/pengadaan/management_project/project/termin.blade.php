@@ -41,13 +41,13 @@
                 <tbody>
                     @foreach ($termin as $item)
                     <tr>
-                        <td>{{"Bulan " . $item->no_termin}}</td>
+                        <td>{{$item->no_termin}}</td>
                         <td>{{date('d F Y', strtotime($item->tgl_mulai))}}</td>
                         <td>{{date('d F Y', strtotime($item->tgl_akhir))}}</td>
                         <td class="text-center">
                             <span class="badge badge-danger">Jatuh Tempo</span>
                         </td>
-                        <td>{{$item->no_tagihan}}</td>
+                        <td>{{$item->tagihan_id}}</td>
                         <td class="text-center">
                             <button class="btn btn-info btn-sm" onclick="edit_termin({{$item->id_termin}})"> <i class="fa fa-edit"></i> </button>
                         </td>
@@ -131,7 +131,6 @@
                     </div>
                 </div>
                
-               
             </div>
            
         </div>
@@ -159,8 +158,10 @@
     });  
 
     function edit_termin(id){
+        var id = 110;
         $.ajax({
-            url:'/management_project/termin/' + id +'/edit',
+
+            url: '/pengadaan/termin_pengadaan/' + id + '/edit',
             type:'get',
             dataType:'json',
             success:function(response){

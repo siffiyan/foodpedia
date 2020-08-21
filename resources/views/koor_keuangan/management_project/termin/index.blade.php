@@ -31,7 +31,7 @@
                 <td>{{$item->nama_project}}</td>
                 <td>{{date('d F Y', strtotime($item->tgl_mulai))}}</td>
                 <td>{{date('d F Y', strtotime($item->tgl_akhir))}}</td>
-                <td>{{$item->no_tagihan}}</td>
+                <td>{{$item->tagihan_id}}</td>
                 <td class="text-center">
                     <span class="badge badge-success text-white" style="cursor:pointer">lunas</span>
                 </td>

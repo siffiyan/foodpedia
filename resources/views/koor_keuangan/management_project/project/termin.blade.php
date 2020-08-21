@@ -47,7 +47,7 @@
                         <td class="text-center">
                             <span class="badge badge-danger">Jatuh Tempo</span>
                         </td>
-                        <td>{{$item->no_tagihan}}</td>
+                        <td>{{$item->tagihan_id}}</td>
                         <td class="text-center">
                             <button class="btn btn-info btn-sm" onclick="edit_termin({{$item->id_termin}})"> <i class="fa fa-edit"></i> </button>
                         </td>
@@ -113,42 +113,10 @@
                         <input type="text" class="form-control" name="nilai_tagihan" id="nilai_tagihan">
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label>NO DUKUNGAN TAGIHAN</label>
                         <input type="text" class="form-control" name="id_dok_dukungan_tagihan" id="id_dok_dukungan_tagihan">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>NILAI TAGIHAN</label>
-                        <input type="text" class="form-control" name="id_detail_tagihan" id="id_detail_tagihan">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>NILAI KODE LOKASI</label>
-                        <input type="text" class="form-control" name="nilai_per_kode_lokasi" id="nilai_per_kode_lokasi">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>KODE LOKASI</label>
-                        <input type="text" class="form-control" name="kode_lokasi" id="kode_lokasi">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>NILAI URAIAN</label>
-                        <input type="text" class="form-control" name="nilai_uraian" id="nilai_uraian">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>NAMA URAIAN</label>
-                        <input type="text" class="form-control" name="nama_uraian" id="nama_uraian">
                     </div>
                 </div>
             </div>
@@ -178,7 +146,7 @@
 
     function edit_termin(id){
         $.ajax({
-            url:'/admin/termin/' + id +'/edit',
+            url:'/keuangan/termin_keuangan/' + id +'/edit',
             type:'get',
             dataType:'json',
             success:function(response){
