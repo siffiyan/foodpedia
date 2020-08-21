@@ -42,6 +42,7 @@ Route::prefix('management_project')->group(function () {
     Route::post('/','SuperAdmin\ProjectController@store');
     
     Route::resource('termin','SuperAdmin\TerminController');
+    Route::put('/termin/update','SuperAdmin\TerminController@update');
 
     Route::resource('penpp_vendor', 'SuperAdmin\PenppVendorController');
 });

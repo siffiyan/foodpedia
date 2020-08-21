@@ -72,90 +72,72 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form action="#">
+        <form action="/management_project/termin/update" method="post">
+            @csrf
+            @method('put')
         <div class="modal-body">
+            <input type="hidden" name="project_id" id="project_id">
             <input type="hidden" name="id_termin" id="id">
             <div class="row">
+                <input type="hidden" name="id_tagihan" id="id_tagihan">
+                 <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>TANGGAL MULAI TERMIN</label>
+                        <input type="date" class="form-control" disabled="" name="tgl_mulai" id="tgl_mulai">
+                    </div>
+                </div>
                 <div class="col-sm-4">
                     <div class="form-group">
+                        <label>TANGGAL AKHIR TERMIN</label>
+                        <input type="date" class="form-control" disabled="" name="tgl_akhir" id="tgl_akhir">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
                         <label>NO TERMIN</label>
-                        <input type="text" class="form-control" name="no_termin" id="no_termin">
+                        <input type="text" class="form-control" disabled="" name="no_termin" id="no_termin">
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>TANGGAL MULAI</label>
-                        <input type="date" class="form-control" name="tgl_mulai" id="tgl_mulai">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>TANGGAL AKHIR</label>
-                        <input type="date" class="form-control" name="tgl_akhir" id="tgl_akhir">
-                    </div>
-                </div>
+               
                 <div class="col-sm-2" style="margin-top:32px">
                     <div class="form-group">
-                        <span class="btn btn-danger center" style="padding-right:30px;padding-left:30px" disabled>Inactive</span>
+                        <span class="btn btn-danger center" id="status_tagihan" style="padding-right:30px;padding-left:30px" disabled></span>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label> NO TAGIHAN</label>
-                        <input type="text" class="form-control" name="no_tagihan" id="no_tagihan">
+                        <label> TANGGAL MULAI TAGIHAN</label>
+                        <input type="text" class="form-control" disabled id="tanggal_mulai_tagihan">
+                    </div>
+                </div>
+                 <div class="col-sm-3">
+                    <div class="form-group">
+                        <label> TANGGAL AKHIR TAGIHAN</label>
+                        <input type="text" class="form-control" disabled id="tanggal_akhir_tagihan">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>NILAI TAGIHAN</label>
-                        <input type="text" class="form-control" name="nilai_tagihan" id="nilai_tagihan">
+                        <input type="text" class="form-control" disabled name="nilai_tagihan" id="nilai_tagihan">
                     </div>
                 </div>
-                <div class="col-sm-3">
+                  <div class="col-sm-3">
                     <div class="form-group">
-                        <label>NO DUKUNGAN TAGIHAN</label>
-                        <input type="text" class="form-control" name="id_dok_dukungan_tagihan" id="id_dok_dukungan_tagihan">
+                        <label>NO TAGIHAN</label>
+                        <input type="text" class="form-control" id="no_tagihan" name="no_tagihan">
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>NILAI TAGIHAN</label>
-                        <input type="text" class="form-control" name="id_detail_tagihan" id="id_detail_tagihan">
-                    </div>
-                </div>
+               
+               
             </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>NILAI KODE LOKASI</label>
-                        <input type="text" class="form-control" name="nilai_per_kode_lokasi" id="nilai_per_kode_lokasi">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>KODE LOKASI</label>
-                        <input type="text" class="form-control" name="kode_lokasi" id="kode_lokasi">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>NILAI URAIAN</label>
-                        <input type="text" class="form-control" name="nilai_uraian" id="nilai_uraian">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>NAMA URAIAN</label>
-                        <input type="text" class="form-control" name="nama_uraian" id="nama_uraian">
-                    </div>
-                </div>
-            </div>
+           
         </div>
         <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
         </form>
         </div>
@@ -178,14 +160,21 @@
 
     function edit_termin(id){
         $.ajax({
-            url:'/pengadaan/termin/' + id +'/edit',
+            url:'/management_project/termin/' + id +'/edit',
             type:'get',
             dataType:'json',
             success:function(response){
-                console.log(response);
+                $('#project_id').val(response.termin.project_id);
                 $('#no_termin').val(response.termin.no_termin);
                 $('#tgl_mulai').val(response.termin.tgl_mulai);
                 $('#tgl_akhir').val(response.termin.tgl_akhir);
+                $('#no_tagihan').val(response.termin.no_tagihan);
+                $('#nilai_tagihan').val(response.termin.nilai_tagihan);
+                $('#status_tagihan').html(response.termin.status_tagihan);
+                $('#tanggal_mulai_tagihan').val(response.termin.tanggal_tagihan_awal);
+                $('#tanggal_akhir_tagihan').val(response.termin.tanggal_tagihan_akhir);
+                $('#id_tagihan').val(response.termin.id);
+                $('#no_tagihan').val(response.termin.no_tagihan);
                 $('#modal_termin_edit').modal('show');
             },
             error:function(){
