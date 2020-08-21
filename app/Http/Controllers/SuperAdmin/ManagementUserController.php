@@ -25,8 +25,13 @@ class ManagementUserController extends Controller
 
 	public function store(Request $request){
 
-		$data = $request->all();
-		$data['password_user'] = Hash::make($request->password_user);
+		Users::create([
+			'id_user' => $request->id_user,
+			'nama_user' => $request->nama_user,
+			'isactive' => $request->isactive,
+			'id_user_level' => $request->id_user_level,
+			'password_user' => Hash::make($request->password_user),
+		]);
 		
 		return redirect('/admin/management_user')->with('msg','data berhasil ditambahkan');
 
