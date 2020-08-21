@@ -68,9 +68,11 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form action="#">
+        <form action="/tagihan/termin_tagihan/detail_tagihan" method="post">
+            @csrf
         <div class="modal-body">
             <div class="row">
+                <input type="hidden" name="tagihan_id" id="tagihan_id">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>KODE LOKASI</label>
@@ -125,7 +127,7 @@
         </div>
         <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
         </form>
         </div>
@@ -147,6 +149,7 @@
     });  
 
     function detail(id){
+        $('#tagihan_id').val(id);
         $('#modal_detail').modal('show');
     }
 

@@ -55,7 +55,6 @@ class TerminController extends Controller
      */
     public function show($id)
     {
-<<<<<<< HEAD:app/Http/Controllers/SuperAdmin/TerminController.php
         $data['termin'] = DB::table('termins')
                         ->leftJoin('tagihans','termins.tagihan_id','tagihans.id')
                         ->where('project_id', $id)
@@ -63,9 +62,6 @@ class TerminController extends Controller
                         ->orderBy('termins.no_termin','asc')
                         ->get();
 
-=======
-        $data['termin'] = DB::table('termins')->where('project_id', $id)->get();
->>>>>>> 2d9663b2fbc738ad4075409e602859e5b4b4afce:app/Http/Controllers/Pengadaan/TerminController.php
         $data['project'] = DB::table('projects')->where('id_kontrak', $id)->first();
         return view('pengadaan.management_project.project.termin',$data);
     }

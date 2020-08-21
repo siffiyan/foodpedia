@@ -93,4 +93,14 @@ class TerminController extends Controller
     {
         //
     }
+
+    public function store_detail_tagihan(Request $request){
+
+        $id = DB::table('detail_tagihans')->insertGetId(['tagihan_id'=>$request->tagihan_id,'nilai_per_kode_lokasi'=>$request->nilai_per_kode_lokasi,'kode_lokasi'=>$request->kode_lokasi]);
+
+        DB::table('uraian_tagihans')->insert(['detail_tagihan_id'=>$id,'nama_uraian'=>$request->nama_uraian,'nilai_uraian'=>$request->nilai_uraian]);
+
+       return redirect()->back();
+
+    }
 }

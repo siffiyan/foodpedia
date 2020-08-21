@@ -46,6 +46,8 @@ Route::prefix('management_project')->group(function () {
     Route::resource('termin','SuperAdmin\TerminController');
     Route::put('/termin/update','SuperAdmin\TerminController@update');
 
+    });
+
 Route::prefix('pengadaan')->group(function () {
     Route::get('dashboard', 'Pengadaan\DashboardController@index');
     Route::resource('penpp_vendor', 'Pengadaan\PenppVendorController');
@@ -68,7 +70,10 @@ Route::prefix('keuangan')->group(function () {
 Route::prefix('tagihan')->group(function (){
     Route::get('dashboard', 'Tagihan\DashboardController@index');
     Route::resource('project_tagihan', 'Tagihan\ProjectController');
+       Route::post('termin_tagihan/detail_tagihan', 'Tagihan\TerminController@store_detail_tagihan');
     Route::resource('termin_tagihan', 'Tagihan\TerminController');
+
 });
+
 
 
