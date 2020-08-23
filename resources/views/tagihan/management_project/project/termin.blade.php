@@ -68,8 +68,11 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form action="#">
+        <form action="/tagihan/termin_tagihan/detail_tagihan" method="post">
+            @csrf
+                   <input type="hidden" name="tagihan_id" id="tagihan_id">
         <div class="modal-body">
+
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -95,9 +98,10 @@
                     </div>
                 </div>
                 <div class="col-md-3" style="margin-top: 32px">
-                    <button class="btn btn-danger btn-block" onclick="add_detail('1','')">Add Detail Tagihan</button>
+                    <button class="btn btn-danger btn-block" id="btn_append_detail0">Add Detail Tagihan</button>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -117,15 +121,18 @@
                     <input type="text" class="form-control" name="nama_uraian">
                 </div>
                 <div class="col-md-1" style="margin-top: 32px">
-                    <button type="button" class="btn btn-info btn-block" id="btn_append_uraian"><i class="fa fa-plus-square"></i></button>
+                    <button type="button" class="btn btn-info btn-block" id="btn_append_uraian0"><i class="fa fa-plus-square"></i></button>
                 </div>
             </div>
-            <div id="append_uraian"></div>
+
+            <div id="append_uraian0"></div>
+
             <div id="append_detail"></div>
+
         </div>
         <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
         </form>
         </div>
@@ -138,7 +145,10 @@
 
 @section('js')
 
+
+
 <script>
+
     $(function () {
         $("#table-termin").DataTable({
         "responsive": true,
@@ -147,17 +157,63 @@
     });  
 
     function detail(id){
+        $('#tagihan_id').val(id);
         $('#modal_detail').modal('show');
     }
 
-    var i=1; 
-    $('#btn_append_uraian').click(function(e){
+    var i=1;
+    var j=1;
+
+    function tes(x){
+        $('#btn_append_uraian'+x).click(function(e){
+            e.preventDefault();
+            $('#append_uraian'+x).append(`
+                <div class="row" id="row`+i+`">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>NILAI URAIAN</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-rupee-sign"></i>
+                                </span>
+                                </div>
+                                <input type="text" class="form-control" name="nilai_uraian">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>KETERANGAN</label>
+                        <input type="text" class="form-control" name="nama_uraian">
+                    </div>
+                    <div class="col-md-1" style="margin-top: 32px">
+                        <button type="button" class="btn btn-danger btn-block btn-remove" name="remove" id="`+i+`"> <i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+            `);
+            i++;
+        });  
+
+        $('#btn_delete_detail'+x).click(function(e){
+            e.preventDefault();
+            $('#row_detail'+x).remove();
+        });
+
+        $('#append_uraian'+x).on('click', '.btn-remove', function(e) {
+            e.preventDefault();
+            var button_id = $(this).attr("id");
+            $('#row'+button_id+'').remove();
+            i--;
+        });
+    }
+
+    $('#btn_append_uraian0').click(function(e){
         e.preventDefault();
-        $('#append_uraian').append(`
-            <div class="row" id="row`+i+`">
+        $('#append_uraian0').append(`
+             <div class="row" id="row`+i+`">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>NILAI URAIAN</label>
+                        <label>NILAI URAIAN`+i+`</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
@@ -180,17 +236,47 @@
         i++;
     });
 
-    $('#append_uraian').on('click', '.btn-remove', function(e) {
+    $('#append_uraian0').on('click', '.btn-remove', function(e) {
         e.preventDefault();
         var button_id = $(this).attr("id");
         $('#row'+button_id+'').remove();
         i--;
     });
 
-    $('#btn_append_detail').click(function(e){
+    $('#btn_append_detail0').click(function(e){
         e.preventDefault();
-        $('#append_uraian').append(`
-            <div class="row" id="row`+i+`">
+       $('#append_detail').append(`
+       <div id="row_detail`+j+`">
+           <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>KODE LOKASI</label>
+                        <select name="kode_lokasi" class="form-control">
+                            <option value="BDG">Bandung</option>
+                            <option value="SBY">Surabaya</option>
+                            <option value="SDA">Sidoarjo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>ANGGARAN</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="fas fa-rupee-sign"></i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" name="nilai_per_kode_lokasi">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1" style="margin-top: 32px">
+                    <button type="button" class="btn btn-danger btn-block" id="btn_delete_detail${j}"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>NILAI URAIAN</label>
@@ -209,20 +295,23 @@
                     <input type="text" class="form-control" name="nama_uraian">
                 </div>
                 <div class="col-md-1" style="margin-top: 32px">
-                    <button type="button" class="btn btn-danger btn-block btn-remove" name="remove" id="`+i+`"> <i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-info btn-block" id="btn_append_uraian${j}"><i class="fa fa-plus-square"></i></button>
                 </div>
             </div>
-        `);
-        i++;
+
+            <div id="append_uraian${j}"></div>
+        </div>
+            `);
+          tes(j);
+       j++;
     });
 
-    $('#append_detail').on('click', '.btn-remove', function(e) {
+    $('#append_uraian0').on('click', '.btn-remove', function(e) {
         e.preventDefault();
         var button_id = $(this).attr("id");
         $('#row'+button_id+'').remove();
         i--;
     });
-
     
 </script>
 
