@@ -70,7 +70,7 @@ Route::prefix('keuangan')->group(function () {
 Route::prefix('tagihan')->group(function (){
     Route::get('dashboard', 'Tagihan\DashboardController@index');
     Route::resource('project_tagihan', 'Tagihan\ProjectController');
-       Route::post('termin_tagihan/detail_tagihan', 'Tagihan\TerminController@store_detail_tagihan');
+    Route::post('termin_tagihan/detail_tagihan', 'ProjectController@store_detail_tagihan');
     Route::resource('termin_tagihan', 'Tagihan\TerminController');
 
 });
