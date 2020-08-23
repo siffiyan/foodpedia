@@ -73,6 +73,24 @@
             <input type="hidden" name="tagihan_id" id="tagihan_id">
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-md-12">
+                        <!-- Widget: user widget style 1 -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label>DAFTAR DOKUMEN TAGIHAN 1</label>
+                                        <input type="text" class="form-control" name="nama_uraian">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-danger" style="margin-top:32px" id="btn_append"> <i class="fa fa-plus"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <input type="hidden" name="tagihan_id" id="tagihan_id">
                     <div class="col-md-4">
                         <div class="form-group">

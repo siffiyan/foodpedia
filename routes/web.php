@@ -75,5 +75,8 @@ Route::prefix('tagihan')->group(function (){
 
 });
 
-
+Route::prefix('verifikator')->group(function(){
+    Route::view('tagihan','verifikator.management_project.tagihan.index');
+    Route::view('checklist','verifikator.management_project.tagihan.checklist');
+});
 
