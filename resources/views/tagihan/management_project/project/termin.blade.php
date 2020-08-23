@@ -70,70 +70,70 @@
         </div>
         <form action="/tagihan/termin_tagihan/detail_tagihan" method="post">
             @csrf
-                   <input type="hidden" name="tagihan_id" id="tagihan_id">
-        <div class="modal-body">
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>KODE LOKASI</label>
-                        <select name="kode_lokasi" class="form-control">
-                            <option value="BDG">Bandung</option>
-                            <option value="SBY">Surabaya</option>
-                            <option value="SDA">Sidoarjo</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label>ANGGARAN</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <i class="fas fa-rupee-sign"></i>
-                              </span>
-                            </div>
-                            <input type="text" class="form-control" name="nilai_per_kode_lokasi">
+            <input type="hidden" name="tagihan_id" id="tagihan_id">
+            <div class="modal-body">
+                <div class="row">
+                    <input type="hidden" name="tagihan_id" id="tagihan_id">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>KODE LOKASI</label>
+                            <select name="kode_lokasi" class="form-control">
+                                <option value="BDG">Bandung</option>
+                                <option value="SBY">Surabaya</option>
+                                <option value="SDA">Sidoarjo</option>
+                            </select>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3" style="margin-top: 32px">
-                    <button class="btn btn-danger btn-block" id="btn_append_detail0">Add Detail Tagihan</button>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>NILAI URAIAN</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <i class="fas fa-rupee-sign"></i>
-                              </span>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>ANGGARAN</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-rupee-sign"></i>
+                                </span>
+                                </div>
+                                <input type="text" class="form-control" name="nilai_per_kode_lokasi">
                             </div>
-                            <input type="text" class="form-control" name="nilai_uraian">
                         </div>
                     </div>
+                    <div class="col-md-3" style="margin-top: 32px">
+                        <button class="btn btn-danger btn-block" id="btn_append_detail0">Add Detail Tagihan</button>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label>KETERANGAN</label>
-                    <input type="text" class="form-control" name="nama_uraian">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>NILAI URAIAN</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-rupee-sign"></i>
+                                </span>
+                                </div>
+                                <input type="text" class="form-control" name="nilai_uraian">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>KETERANGAN</label>
+                        <input type="text" class="form-control" name="nama_uraian">
+                    </div>
+                    <div class="col-md-1" style="margin-top: 32px">
+                        <button type="button" class="btn btn-info btn-block" id="btn_append_uraian0"><i class="fa fa-plus-square"></i></button>
+                    </div>
                 </div>
-                <div class="col-md-1" style="margin-top: 32px">
-                    <button type="button" class="btn btn-info btn-block" id="btn_append_uraian0"><i class="fa fa-plus-square"></i></button>
-                </div>
+
+                <div id="append_uraian0"></div>
+
+                <div id="append_detail"></div>
+
             </div>
-
-            <div id="append_uraian0"></div>
-
-            <div id="append_detail"></div>
-
-        </div>
-        <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
         </form>
         </div>
         <!-- /.modal-content -->

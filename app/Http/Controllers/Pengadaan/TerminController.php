@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Termin;
 use App\Models\Project;
+use App\Models\Tagihan;
 
 class TerminController extends Controller
 {
@@ -43,7 +44,7 @@ class TerminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -54,7 +55,13 @@ class TerminController extends Controller
      */
     public function show($id)
     {
-        $data['termin'] = DB::table('termins')->where('project_id', $id)->get();
+        $data['termin'] = DB::table('termins')
+                        ->leftJoin('tagihans','termins.tagihan_id','tagihans.id')
+                        ->where('project_id', $id)
+                        ->select('termins.*','tagihans.no_tagihan')
+                        ->orderBy('termins.no_termin','asc')
+                        ->get();
+
         $data['project'] = DB::table('projects')->where('id_kontrak', $id)->first();
         return view('pengadaan.management_project.project.termin',$data);
     }
@@ -67,7 +74,10 @@ class TerminController extends Controller
      */
     public function edit($id)
     {
-        $data['termin'] = DB::table('termins')->where('id_termin', $id)->first();
+        $data['termin'] = DB::table('termins')->where('id_termin', $id)
+                        ->join('tagihans','termins.tagihan_id','tagihans.id')
+                        ->select('*')
+                        ->first();
         return $data;
     }
 
@@ -78,9 +88,15 @@ class TerminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $data = Tagihan::findOrFail($request->id_tagihan);
+        $data->no_tagihan = $request->no_tagihan;
+        $data->status_tagihan = "tagihan diterima";
+        $data->update();
+
+        return redirect('/management_project/termin/'.$request->project_id)->with('msg','no tagihan berhasil ditambahkan');
+
     }
 
     /**
