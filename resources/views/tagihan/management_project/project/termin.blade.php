@@ -77,7 +77,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>KODE LOKASI</label>
-                            <select name="kode_lokasi" class="form-control">
+                            <select name="kode_lokasi[]" class="form-control">
                                 <option value="BDG">Bandung</option>
                                 <option value="SBY">Surabaya</option>
                                 <option value="SDA">Sidoarjo</option>
@@ -93,7 +93,7 @@
                                     <i class="fas fa-rupee-sign"></i>
                                 </span>
                                 </div>
-                                <input type="text" class="form-control" name="nilai_per_kode_lokasi">
+                                <input type="text" class="form-control" name="nilai_per_kode_lokasi[]">
                             </div>
                         </div>
                     </div>
@@ -112,13 +112,13 @@
                                     <i class="fas fa-rupee-sign"></i>
                                 </span>
                                 </div>
-                                <input type="text" class="form-control" name="nilai_uraian">
+                                <input type="text" class="form-control" name="nilai_uraian[0][]">
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label>KETERANGAN</label>
-                        <input type="text" class="form-control" name="nama_uraian">
+                        <input type="text" class="form-control" name="nama_uraian[0][]">
                     </div>
                     <div class="col-md-1" style="margin-top: 32px">
                         <button type="button" class="btn btn-info btn-block" id="btn_append_uraian0"><i class="fa fa-plus-square"></i></button>
@@ -178,13 +178,13 @@
                                     <i class="fas fa-rupee-sign"></i>
                                 </span>
                                 </div>
-                                <input type="text" class="form-control" name="nilai_uraian">
+                                <input type="text" class="form-control" name="nilai_uraian[${i}][]">
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label>KETERANGAN</label>
-                        <input type="text" class="form-control" name="nama_uraian">
+                        <input type="text" class="form-control" name="nama_uraian[${i}][]">
                     </div>
                     <div class="col-md-1" style="margin-top: 32px">
                         <button type="button" class="btn btn-danger btn-block btn-remove" name="remove" id="`+i+`"> <i class="fa fa-trash"></i></button>
@@ -220,13 +220,13 @@
                                 <i class="fas fa-rupee-sign"></i>
                               </span>
                             </div>
-                            <input type="text" class="form-control" name="nilai_uraian">
+                            <input type="text" class="form-control" name="nilai_uraian[0][]">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label>KETERANGAN</label>
-                    <input type="text" class="form-control" name="nama_uraian">
+                    <input type="text" class="form-control" name="nama_uraian[0][]">
                 </div>
                 <div class="col-md-1" style="margin-top: 32px">
                     <button type="button" class="btn btn-danger btn-block btn-remove" name="remove" id="`+i+`"> <i class="fa fa-trash"></i></button>
@@ -251,7 +251,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>KODE LOKASI</label>
-                        <select name="kode_lokasi" class="form-control">
+                        <select name="kode_lokasi[]" class="form-control">
                             <option value="BDG">Bandung</option>
                             <option value="SBY">Surabaya</option>
                             <option value="SDA">Sidoarjo</option>
@@ -267,7 +267,7 @@
                                 <i class="fas fa-rupee-sign"></i>
                               </span>
                             </div>
-                            <input type="text" class="form-control" name="nilai_per_kode_lokasi">
+                            <input type="text" class="form-control" name="nilai_per_kode_lokasi[]">
                         </div>
                     </div>
                 </div>
@@ -286,13 +286,13 @@
                                 <i class="fas fa-rupee-sign"></i>
                               </span>
                             </div>
-                            <input type="text" class="form-control" name="nilai_uraian">
+                            <input type="text" class="form-control" name="nilai_uraian[${j}][]">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label>KETERANGAN</label>
-                    <input type="text" class="form-control" name="nama_uraian">
+                    <input type="text" class="form-control" name="nama_uraian[${j}][]">
                 </div>
                 <div class="col-md-1" style="margin-top: 32px">
                     <button type="button" class="btn btn-info btn-block" id="btn_append_uraian${j}"><i class="fa fa-plus-square"></i></button>
