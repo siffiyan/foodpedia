@@ -21,6 +21,10 @@
             </div>
         @endif
 
+        @if(session()->get('id_user_level') == '2')
+        <a href="/management_project/create" class="btn btn-primary mb-3" id="btn_modal_add"><i class="fa fa-plus-square"></i> &nbsp; Add Project</a>
+        @endif
+
         <div class="card">
         <div class="card-header">
             <h3 class="card-title">Data Project</h3>
@@ -65,7 +69,16 @@
                     <span class="badge badge-info text-white" style="cursor:pointer">on progress</span>
                 </td>
                 <td class="text-center">
-                    <a href="{{route('termin_tagihan.show',$r->id_kontrak)}}"><button class="btn btn-success btn-sm"><i class="fa fa-handshake"></i></button></a>
+                    <a href="/management_project/detail"><button class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button></a>
+                    @if(session()->get('id_user_level') == '2')
+                    <button class="btn btn-info btn-sm" onclick="edit({{$r->id_kontrak}})"><i class="fa fa-edit"></i></button>
+                    <a href="/management_project/termin/{{$r->id_kontrak}}"><button class="btn btn-success btn-sm"><i class="fa fa-handshake"></i></button></a>
+                    <a href="{{route('penpp_vendor.edit',$r->id_kontrak)}}"><button class="btn btn-warning btn-sm text-white"><i class="fa fa-envelope"></i></button></a>
+                    <button class="btn btn-danger btn-sm" onclick="hapus({{$r->id_kontrak}})"><i class="fa fa-trash"></i></button> 
+                    @elseif(session()->get('id_user_level') == '4')
+                    <a href="/management_project/termin_tagihan/{{$r->id_kontrak}}"><button class="btn btn-success btn-sm"><i class="fa fa-handshake"></i></button></a>
+                    @endif
+
                 </td>
             </tr>
             @endforeach
@@ -78,37 +91,6 @@
     </div>
     <!-- /.col -->
 </div>
-
-<div class="modal fade" id="inactive_modal" role="dialog" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content modal-content bg-warning text-center">
-            <div class="modal-body">
-                <div class="form-content p-2">
-                    <h4 class="modal-title">Inactive</h4>
-                    <input type="hidden" name="id" id="id_delete">
-                    <p class="mb-4">Are you sure want to inactive?</p>
-                    <button type="submit" class="btn btn-outline-light">INACTIVE</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="active_modal" role="dialog" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content bg-success text-center">
-            <div class="modal-body">
-                <div class="form-content p-2">
-                    <h4 class="modal-title">Acivated</h4>
-                    <input type="hidden" name="id" id="id_delete">
-                    <p class="mb-4">Are you sure want to activatdd?</p>
-                    <button type="submit" class="btn btn-outline-light">ACTIVATED</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- /.modal -->
 
 @endsection
 

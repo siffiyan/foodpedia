@@ -38,33 +38,36 @@ Route::prefix('admin')->group(function () {
     Route::delete('management_master/vendor/destroy','SuperAdmin\VendorController@destroy');
 });
 
-Route::prefix('management_project')->group(function () {
-    Route::get('/','SuperAdmin\ProjectController@index');
-    Route::get('/create','SuperAdmin\ProjectController@create');
-    Route::post('/','SuperAdmin\ProjectController@store');
+Route::prefix('management_project')->group(function () {    
+    Route::view('detail','management_project\project\detail');
     
-    Route::resource('termin','SuperAdmin\TerminController');
-    Route::put('/termin/update','SuperAdmin\TerminController@update');
+    Route::get('/','ProjectController@index');
+    Route::get('/create','ProjectController@create');
+    Route::post('/store','ProjectController@store');
 
-    });
+    Route::get('/termin','TerminController@index');
+    Route::get('/termin/{id}','TerminController@show');
+    Route::get('/termin/{id}/edit','TerminController@edit');
+    Route::put('/termin/update','TerminController@update');
+
+    Route::get('/termin_tagihan/{id}','TerminController@show_tagihan');
+
+    Route::post('termin/detail_tagihan', 'ProjectController@store_detail_tagihan');
+
+});
 
 Route::prefix('pengadaan')->group(function () {
     Route::get('dashboard', 'Pengadaan\DashboardController@index');
     Route::resource('penpp_vendor', 'Pengadaan\PenppVendorController');
-    Route::resource('project_pengadaan', 'Pengadaan\ProjectController');
-    Route::resource('termin_pengadaan', 'Pengadaan\TerminController');
-    // Route::resource('project_pengadaan', 'Pengadaan\ProjectController');
-    // Route::resource('termin', 'Pengadaan\TerminController');
-    // Route::get('management_project','SuperAdmin\ProjectController@index');
-    // Route::get('/create','SuperAdmin\ProjectController@create');
-    // Route::post('/','SuperAdmin\ProjectController@store');
-    // Route::view('coba','pengadaan.management_project.project.coba');
 });
 
 Route::prefix('keuangan')->group(function () {
     Route::get('dashboard', 'KoorKeuangan\DashboardController@index');
     Route::resource('project_keuangan', 'KoorKeuangan\ProjectController');
     Route::resource('termin_keuangan', 'KoorKeuangan\TerminController');
+
+    Route::view('tagihan_mm','koor_keuangan.management_project.tagihan.tagihan_mm');
+    Route::view('tagihan_pembayaran','koor_keuangan.management_project.tagihan.tagihan_usulan_pembayaran');
 });
 
 Route::prefix('tagihan')->group(function (){
@@ -73,10 +76,17 @@ Route::prefix('tagihan')->group(function (){
     Route::post('termin_tagihan/detail_tagihan', 'ProjectController@store_detail_tagihan');
     Route::resource('termin_tagihan', 'Tagihan\TerminController');
 
+    Route::view('tagihan_disetujui','tagihan.management_project.tagihan.tagihan_disetujui');
+
 });
 
 Route::prefix('verifikator')->group(function(){
     Route::view('tagihan','verifikator.management_project.tagihan.index');
     Route::view('checklist','verifikator.management_project.tagihan.checklist');
+});
+
+Route::prefix('manager')->group(function(){
+    Route::view('tagihan','manager.management_project.tagihan.index');
+    Route::view('persetujuan','manager.management_project.tagihan.persetujuan');
 });
 

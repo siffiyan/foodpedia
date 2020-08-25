@@ -5,7 +5,23 @@
 @section('content')   
 
 <div class="row">
+    
     <div class="col-md-12">
+
+        @if ($message = Session::get('msg'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>    
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
+
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>    
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
+
         <!-- Widget: user widget style 1 -->
         <div class="card card-widget widget-user">
         <!-- Add the bg color to the header using any of the bg-* classes -->
@@ -63,12 +79,12 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title">Edit Termin</h4>
+            <h4 class="modal-title">Edit Detail Tagihan</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form action="/tagihan/termin_tagihan/detail_tagihan" method="post">
+        <form action="/management_project/termin/detail_tagihan" method="post">
             @csrf
             <input type="hidden" name="tagihan_id" id="tagihan_id">
             <div class="modal-body">
@@ -79,13 +95,14 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <label>DAFTAR DOKUMEN TAGIHAN 1</label>
+                                        <label>DAFTAR DOKUMEN TAGIHAN</label>
                                         <input type="text" class="form-control" name="nama_uraian">
                                     </div>
                                     <div class="col-md-4">
-                                        <button class="btn btn-danger" style="margin-top:32px" id="btn_append"> <i class="fa fa-plus"></i> </button>
+                                        <button type="button" class="btn btn-info" style="margin-top:32px" id="btn_append_dokumen"><i class="fa fa-plus"></i> </button>
                                     </div>
                                 </div>
+                                <div id="append_dokumen"></div>
                             </div>
                         </div>
                     </div>
@@ -181,6 +198,7 @@
 
     var i=1;
     var j=1;
+    var a=1;
 
     function tes(x){
         $('#btn_append_uraian'+x).click(function(e){
@@ -329,6 +347,28 @@
         var button_id = $(this).attr("id");
         $('#row'+button_id+'').remove();
         i--;
+    });
+
+    $('#btn_append_dokumen').click(function(){
+        $('#append_dokumen').append(`
+            <div class="row mt-2" id="row`+a+`">
+                <div class="col-md-8">
+                    <label>DAFTAR DOKUMEN TAGIHAN</label>
+                    <input type="text" class="form-control" name="nama_uraian">
+                </div>
+                <div class="col-md-4" style="margin-top:32px">
+                    <button type="button" class="btn btn-danger btn-remove" name="remove" id="`+a+`"> <i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+        `);
+        a++;
+    })
+
+    $('#append_dokumen').on('click', '.btn-remove', function(e) {
+        e.preventDefault();
+        var button_id = $(this).attr("id");
+        $('#row'+button_id+'').remove();
+        a--;
     });
     
 </script>

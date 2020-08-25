@@ -6,6 +6,21 @@
 
 <div class="row">
     <div class="col-md-12">
+
+        @if ($message = Session::get('msg'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>    
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
+
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>    
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
+
         <!-- Widget: user widget style 1 -->
         <div class="card card-widget widget-user">
         <!-- Add the bg color to the header using any of the bg-* classes -->
@@ -158,13 +173,13 @@
     });  
 
     function edit_termin(id){
-        var id = 110;
         $.ajax({
 
-            url: '/pengadaan/termin_pengadaan/' + id + '/edit',
+            url: '/management_project/termin/' + id + '/edit',
             type:'get',
             dataType:'json',
             success:function(response){
+                console.log(response);
                 $('#project_id').val(response.termin.project_id);
                 $('#no_termin').val(response.termin.no_termin);
                 $('#tgl_mulai').val(response.termin.tgl_mulai);

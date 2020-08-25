@@ -44,29 +44,6 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-project-diagram"></i>
-              <p>
-                Management Project
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/management_project" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Project</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('termin.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Termin</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
               <i class="nav-icon fab fa-accusoft"></i>
               <p>
                 Management List
@@ -110,13 +87,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('project_pengadaan.index')}}" class="nav-link">
+                <a href="/management_project" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Project</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('termin_pengadaan.index')}}" class="nav-link">
+                <a href="/management_project/termin" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Termin</p>
                 </a>
@@ -192,13 +169,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('project_tagihan.index')}}" class="nav-link">
+                <a href="/management_project" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Project</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('termin_tagihan.index')}}" class="nav-link">
+                <a href="/management_project/termin" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Termin</p>
                 </a>
