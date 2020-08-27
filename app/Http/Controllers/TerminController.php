@@ -32,12 +32,14 @@ class TerminController extends Controller
                         ->get();
 
         $data['project'] = DB::table('projects')->where('id_kontrak', $id)->first();
-        return view('pengadaan.management_project.project.termin',$data);
+        return view('keuangan.management_project.project.termin',$data);
     }
 
     public function show_tagihan($id)
     {
-        $data['termin'] = DB::table('termins')->where('project_id', $id)->get();
+        $data['termin'] = DB::table('termins')
+                                ->join('tagihans', 'termins.tagihan_id', '=', 'tagihans.id')
+                                ->where('termins.project_id', $id)->get();
         $data['project'] = DB::table('projects')->where('id_kontrak', $id)->first();
         return view('tagihan.management_project.project.termin',$data);
     }

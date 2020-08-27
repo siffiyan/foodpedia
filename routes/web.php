@@ -39,7 +39,7 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::prefix('management_project')->group(function () {    
-    Route::view('detail','management_project\project\detail');
+    Route::get('detail/{id}','ProjectController@detail');
     
     Route::get('/','ProjectController@index');
     Route::get('/create','ProjectController@create');
@@ -63,8 +63,7 @@ Route::prefix('pengadaan')->group(function () {
 
 Route::prefix('keuangan')->group(function () {
     Route::get('dashboard', 'KoorKeuangan\DashboardController@index');
-    Route::resource('project_keuangan', 'KoorKeuangan\ProjectController');
-    Route::resource('termin_keuangan', 'KoorKeuangan\TerminController');
+    Route::get('termin_keuangan/{id}/edit','TerminController@edit');
 
     Route::view('tagihan_mm','koor_keuangan.management_project.tagihan.tagihan_mm');
     Route::view('tagihan_pembayaran','koor_keuangan.management_project.tagihan.tagihan_usulan_pembayaran');
@@ -72,15 +71,14 @@ Route::prefix('keuangan')->group(function () {
 
 Route::prefix('tagihan')->group(function (){
     Route::get('dashboard', 'Tagihan\DashboardController@index');
-    Route::resource('project_tagihan', 'Tagihan\ProjectController');
     Route::post('termin_tagihan/detail_tagihan', 'ProjectController@store_detail_tagihan');
-    Route::resource('termin_tagihan', 'Tagihan\TerminController');
-
-    Route::view('tagihan_disetujui','tagihan.management_project.tagihan.tagihan_disetujui');
+    Route::get('tagihan','Tagihan\TagihanController@index');
 
 });
 
 Route::prefix('verifikator')->group(function(){
+    Route::get('dashboard', 'Verifikator\DashboardController@index');
+    Route::get('tagihan','Verifikator\TagihanController@index');
     Route::view('tagihan','verifikator.management_project.tagihan.index');
     Route::view('checklist','verifikator.management_project.tagihan.checklist');
 });

@@ -21,16 +21,28 @@ class ProjectController extends Controller
 		return view('management_project.project.index',$data);
     }
 
-    public function detail()
+    public function detail($id)
     {
-        return view('management_project.project.detail');
+		$data['project'] = DB::table('projects')
+								->join('vendors', 'projects.id_vendor', '=', 'vendors.id_vendor')
+								->select('projects.*','vendors.nama_vendor')
+								->where('id_kontrak',$id)
+								->first();
+								
+		$data['termin'] = DB::table('termins')
+								->join('tagihans', 'termins.tagihan_id', '=', 'tagihans.id')
+								->where('project_id',$id)
+								->get();
+
+
+        return view('management_project.project.detail',$data);
     }
 
     //PENGADAAN
 
     public function create(){
 		$data['vendor'] = Vendor::all();
-		return view('pengadaan.management_project.project.create',$data);
+		return view('management_project.project.create',$data);
 	}
 
     public function store(Request $request){

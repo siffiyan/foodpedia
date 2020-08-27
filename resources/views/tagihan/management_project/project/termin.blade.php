@@ -61,8 +61,10 @@
                         <td>{{date('d F Y', strtotime($item->tgl_akhir))}}</td>
                         <td class="text-center">
                             <span class="badge badge-danger">Jatuh Tempo</span>
+                            <span class="badge badge-info">{{$item->status_tagihan}}</span>
+                            <span class="badge badge-warning">{{$item->status_dokumen}}</span>
                         </td>
-                        <td><a href="#" onclick="detail({{$item->tagihan_id}})">{{$item->tagihan_id}}</a></td>
+                        <td><a href="#" onclick="detail({{$item->tagihan_id}})">{{$item->no_tagihan}}</a></td>
                     </tr>  
                     @endforeach 
                 </tbody>

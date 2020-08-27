@@ -69,12 +69,13 @@
                     <span class="badge badge-info text-white" style="cursor:pointer">on progress</span>
                 </td>
                 <td class="text-center">
-                    <a href="/management_project/detail"><button class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button></a>
+                    <a href="/management_project/detail/{{$r->id_kontrak}}"><button class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button></a>
                     @if(session()->get('id_user_level') == '2')
                     <button class="btn btn-info btn-sm" onclick="edit({{$r->id_kontrak}})"><i class="fa fa-edit"></i></button>
-                    <a href="/management_project/termin/{{$r->id_kontrak}}"><button class="btn btn-success btn-sm"><i class="fa fa-handshake"></i></button></a>
                     <a href="{{route('penpp_vendor.edit',$r->id_kontrak)}}"><button class="btn btn-warning btn-sm text-white"><i class="fa fa-envelope"></i></button></a>
                     <button class="btn btn-danger btn-sm" onclick="hapus({{$r->id_kontrak}})"><i class="fa fa-trash"></i></button> 
+                    @elseif(session()->get('id_user_level') == '3')
+                    <a href="/management_project/termin/{{$r->id_kontrak}}"><button class="btn btn-success btn-sm"><i class="fa fa-handshake"></i></button></a>
                     @elseif(session()->get('id_user_level') == '4')
                     <a href="/management_project/termin_tagihan/{{$r->id_kontrak}}"><button class="btn btn-success btn-sm"><i class="fa fa-handshake"></i></button></a>
                     @endif

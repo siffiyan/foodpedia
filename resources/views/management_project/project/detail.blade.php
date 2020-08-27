@@ -17,40 +17,40 @@
             <strong><i class="fas fa-book mr-1"></i> Nama Project</strong>
 
             <p class="text-muted">
-              Project Pasar Senen
+              {{$project->nama_project}}
               <br>
-              <small>No Kontrak</small>
+              <small>No Kontrak {{$project->no_kontrak}}</small>
             </p>
 
             <hr>
 
             <strong><i class="fas fa-book mr-1"></i> Vendor</strong>
 
-            <p class="text-muted">PT. Maju Mundur</p>
+            <p class="text-muted">{{$project->nama_vendor}}</p>
 
             <hr>
 
             <strong><i class="fas fa-map-marker-alt mr-1"></i> Jangka Waktu</strong>
 
-            <p class="text-muted">1 Januari 2020 - 1 Desember 2020</p>
+            <p class="text-muted">{{date('d F Y', strtotime($project->tgl_mulai))}} - {{date('d F Y', strtotime($project->tgl_akhir))}}</p>
 
             <hr>
 
             <strong><i class="fas fa-pencil-alt mr-1"></i> Nilai Project</strong>
 
-            <p class="text-muted">Rp. 10.000.000</p>
+            <p class="text-muted">{{"Rp " . number_format($project->nilai_project,2,',','.')}}</p>
 
             <hr>
 
             <strong><i class="far fa-file-alt mr-1"></i> Periode</strong>
 
-            <p class="text-muted">6</p>
+            <p class="text-muted">{{$project->jumlah_periode}}</p>
 
             <hr>
 
             <strong><i class="far fa-file-alt mr-1"></i> Jenis Pengadaan</strong>
 
-            <p class="text-muted">Pengadaan Alat Berat</p>
+            <p class="text-muted">{{$project->jenis_pengadaan}}</p>
           </div>
           <!-- /.card-body -->
         </div>
@@ -82,16 +82,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            @foreach ($termin as $item)
                             <tr>
-                                <td>1</td>
-                                <td>1 Januari 2020</td>
-                                <td>1 Desember 2020</td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{date('d F Y', strtotime($item->tgl_mulai))}}</td>
+                                <td>{{date('d F Y', strtotime($item->tgl_akhir))}}</td>
                                 <td class="text-center">
-                                    <span class="badge badge-danger">Jatuh Tempo</span>
+                                    <span class="badge badge-danger">{{$item->status_tagihan}}</span>
                                 </td>
-                                <td>2131</td>
+                                <td>{{$item->no_tagihan}}</td>
                             </tr>  
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
