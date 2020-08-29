@@ -61,8 +61,19 @@
                         <td>{{date('d F Y', strtotime($item->tgl_akhir))}}</td>
                         <td class="text-center">
                             <span class="badge badge-danger">Jatuh Tempo</span>
+                           
+                            @if($item->status_tagihan != 'tagihan diterima')
                             <span class="badge badge-info">{{$item->status_tagihan}}</span>
-                            <span class="badge badge-warning">{{$item->status_dokumen}}</span>
+                            @else
+                            <span class="badge badge-success">{{$item->status_tagihan}}</span>
+                            @endif
+
+                            @if($item->status_dokumen == 'incomplete')
+                            <span class="badge badge-warning text-white">{{$item->status_dokumen}}</span>
+                            @else
+                            <span class="badge badge-success text-white">{{$item->status_dokumen}}</span>
+                            @endif
+
                         </td>
                         <td><a href="#" onclick="detail({{$item->tagihan_id}})">{{$item->no_tagihan}}</a></td>
                     </tr>  
@@ -96,11 +107,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-10">
                                         <label>DAFTAR DOKUMEN TAGIHAN</label>
-                                        <input type="text" class="form-control" name="nama_uraian">
+                                        <input type="text" class="form-control" name="nama_uraian" required>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <button type="button" class="btn btn-info" style="margin-top:32px" id="btn_append_dokumen"><i class="fa fa-plus"></i> </button>
                                     </div>
                                 </div>
@@ -110,7 +121,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <input type="hidden" name="tagihan_id" id="tagihan_id">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>KODE LOKASI</label>
@@ -130,7 +140,7 @@
                                     <i class="fas fa-rupee-sign"></i>
                                 </span>
                                 </div>
-                                <input type="text" class="form-control" name="nilai_per_kode_lokasi[]">
+                                <input type="text" class="form-control" name="nilai_per_kode_lokasi[]" required>
                             </div>
                         </div>
                     </div>
@@ -149,7 +159,7 @@
                                     <i class="fas fa-rupee-sign"></i>
                                 </span>
                                 </div>
-                                <input type="text" class="form-control" name="nilai_uraian[0][]">
+                                <input type="text" class="form-control" name="nilai_uraian[0][]" required>
                             </div>
                         </div>
                     </div>
@@ -216,13 +226,13 @@
                                     <i class="fas fa-rupee-sign"></i>
                                 </span>
                                 </div>
-                                <input type="text" class="form-control" name="nilai_uraian[${i}][]">
+                                <input type="text" class="form-control" name="nilai_uraian[${i}][]" required>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label>KETERANGAN</label>
-                        <input type="text" class="form-control" name="nama_uraian[${i}][]">
+                        <input type="text" class="form-control" name="nama_uraian[${i}][]" required>
                     </div>
                     <div class="col-md-1" style="margin-top: 32px">
                         <button type="button" class="btn btn-danger btn-block btn-remove" name="remove" id="`+i+`"> <i class="fa fa-trash"></i></button>
@@ -258,13 +268,13 @@
                                 <i class="fas fa-rupee-sign"></i>
                               </span>
                             </div>
-                            <input type="text" class="form-control" name="nilai_uraian[0][]">
+                            <input type="text" class="form-control" name="nilai_uraian[0][]" required>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label>KETERANGAN</label>
-                    <input type="text" class="form-control" name="nama_uraian[0][]">
+                    <input type="text" class="form-control" name="nama_uraian[0][]" required>
                 </div>
                 <div class="col-md-1" style="margin-top: 32px">
                     <button type="button" class="btn btn-danger btn-block btn-remove" name="remove" id="`+i+`"> <i class="fa fa-trash"></i></button>
@@ -289,7 +299,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>KODE LOKASI</label>
-                        <select name="kode_lokasi[]" class="form-control">
+                        <select name="kode_lokasi[]" class="form-control" required>
                             <option value="BDG">Bandung</option>
                             <option value="SBY">Surabaya</option>
                             <option value="SDA">Sidoarjo</option>
@@ -305,7 +315,7 @@
                                 <i class="fas fa-rupee-sign"></i>
                               </span>
                             </div>
-                            <input type="text" class="form-control" name="nilai_per_kode_lokasi[]">
+                            <input type="text" class="form-control" name="nilai_per_kode_lokasi[]" required>
                         </div>
                     </div>
                 </div>
@@ -324,13 +334,13 @@
                                 <i class="fas fa-rupee-sign"></i>
                               </span>
                             </div>
-                            <input type="text" class="form-control" name="nilai_uraian[${j}][]">
+                            <input type="text" class="form-control" name="nilai_uraian[${j}][]" required>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label>KETERANGAN</label>
-                    <input type="text" class="form-control" name="nama_uraian[${j}][]">
+                    <input type="text" class="form-control" name="nama_uraian[${j}][]" required>
                 </div>
                 <div class="col-md-1" style="margin-top: 32px">
                     <button type="button" class="btn btn-info btn-block" id="btn_append_uraian${j}"><i class="fa fa-plus-square"></i></button>
@@ -354,9 +364,9 @@
     $('#btn_append_dokumen').click(function(){
         $('#append_dokumen').append(`
             <div class="row mt-2" id="row`+a+`">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <label>DAFTAR DOKUMEN TAGIHAN</label>
-                    <input type="text" class="form-control" name="nama_uraian">
+                    <input type="text" class="form-control" name="nama_uraian" required>
                 </div>
                 <div class="col-md-4" style="margin-top:32px">
                     <button type="button" class="btn btn-danger btn-remove" name="remove" id="`+a+`"> <i class="fa fa-trash"></i></button>

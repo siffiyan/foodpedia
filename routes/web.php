@@ -52,7 +52,7 @@ Route::prefix('management_project')->group(function () {
 
     Route::get('/termin_tagihan/{id}','TerminController@show_tagihan');
 
-    Route::post('termin/detail_tagihan', 'ProjectController@store_detail_tagihan');
+    Route::post('termin/detail_tagihan', 'TerminController@store_detail_tagihan');
 
 });
 
@@ -78,9 +78,8 @@ Route::prefix('tagihan')->group(function (){
 
 Route::prefix('verifikator')->group(function(){
     Route::get('dashboard', 'Verifikator\DashboardController@index');
-    Route::get('tagihan','Verifikator\TagihanController@index');
-    Route::view('tagihan','verifikator.management_project.tagihan.index');
-    Route::view('checklist','verifikator.management_project.tagihan.checklist');
+    Route::get('tagihan','TerminController@index_tagihan_diterima');
+    Route::get('checklist/{id}','TerminController@detail_tagihan_diterima');
 });
 
 Route::prefix('manager')->group(function(){

@@ -175,12 +175,6 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/tagihan/tagihan/index" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tagihan</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="/management_project/termin" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Termin</p>
