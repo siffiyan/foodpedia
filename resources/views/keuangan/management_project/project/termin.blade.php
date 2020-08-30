@@ -41,6 +41,7 @@
             <h3 class="card-title">Data Termin</h3>
         </div>
         <!-- /.card-header -->
+
         <div class="card-body">
             <table id="table-termin" class="table table-bordered table-striped projects">
                 <thead>
@@ -60,7 +61,11 @@
                         <td>{{date('d F Y', strtotime($item->tgl_mulai))}}</td>
                         <td>{{date('d F Y', strtotime($item->tgl_akhir))}}</td>
                         <td class="text-center">
-                            <span class="badge badge-danger">jatuh tempo</span>
+                            @if($item->status_tagihan == 'belum ditagih')
+                                <span class="badge badge-danger">{{$item->status_tagihan}}</span>
+                            @else
+                                <span class="badge badge-success">{{$item->status_tagihan}}</span>
+                            @endif
                         </td>
                         <td>{{$item->no_tagihan}}</td>
                         <td class="text-center">
@@ -115,7 +120,7 @@
                 </div>
                 <div class="col-sm-3" style="margin-top:32px">
                     <div class="form-group">
-                        <span class="btn btn-info center btn-block" id="status_tagihan" style="padding-right:30px;padding-left:30px" disabled></span>
+                        <span class="btn center btn-block" id="status_tagihan" style="padding-right:30px;padding-left:30px" disabled></span>
                     </div>
                 </div>
             </div>
@@ -173,12 +178,11 @@
 
     function edit_termin(id){
         $.ajax({
-
             url: '/management_project/termin/' + id + '/edit',
             type:'get',
             dataType:'json',
             success:function(response){
-                console.log(response);
+                $('#modal_termin_edit form')[0].reset();
                 $('#project_id').val(response.termin.project_id);
                 $('#no_termin').val(response.termin.no_termin);
                 $('#tgl_mulai').val(response.termin.tgl_mulai);
@@ -186,6 +190,13 @@
                 $('#no_tagihan').val(response.termin.no_tagihan);
                 $('#nilai_tagihan').val(response.termin.nilai_tagihan);
                 $('#status_tagihan').html(response.termin.status_tagihan);
+                if(response.termin.status_tagihan == 'belum ditagih'){
+                    $('#status_tagihan').addClass('btn-danger');
+                    $('#status_tagihan').removeClass('btn-success');
+                }else{
+                    $('#status_tagihan').addClass('btn-success');
+                    $('#status_tagihan').removeClass('btn-danger');
+                }
                 $('#tanggal_mulai_tagihan').val(response.termin.tanggal_tagihan_awal);
                 $('#tanggal_akhir_tagihan').val(response.termin.tanggal_tagihan_akhir);
                 $('#id_tagihan').val(response.termin.id);

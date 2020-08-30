@@ -27,7 +27,7 @@ class TerminController extends Controller
         $data['termin'] = DB::table('termins')
                         ->leftJoin('tagihans','termins.tagihan_id','tagihans.id')
                         ->where('project_id', $id)
-                        ->select('termins.*','tagihans.no_tagihan')
+                        ->select('termins.*','tagihans.*')
                         ->orderBy('termins.no_termin','asc')
                         ->get();
 
@@ -59,6 +59,8 @@ class TerminController extends Controller
         $data->no_tagihan = $request->no_tagihan;
         $data->status_tagihan = "tagihan diterima";
         $data->update();
+
+        LogStatus::create(['tagihan_id' => $request->id_tagihan, 'status' => 'tagihan diterima', 'updated_by' => session()->get('id_user')]);
 
         return redirect('/management_project/termin/'.$request->project_id)->with('msg','no tagihan berhasil ditambahkan');
 
@@ -104,11 +106,13 @@ class TerminController extends Controller
 
     public function index_tagihan_diterima()
     {
-        $data['tagihan'] = DB::table('termins')
-                            ->join('projects', 'termins.project_id', '=', 'projects.id_kontrak')
-                            ->join('tagihans', 'termins.tagihan_id', '=', 'tagihans.id')
-                            ->join('vendors', 'projects.id_vendor', '=', 'vendors.id_vendor')
-                            ->where(['status_tagihan' => 'tagihan diterima', 'status_dokumen' => 'complete'])->get();
+        $data['tagihan'] = DB::table('termins as a')
+                            ->join('projects as b', 'a.project_id', '=', 'b.id_kontrak')
+                            ->join('vendors as c', 'b.id_vendor', '=', 'c.id_vendor')
+                            ->join('tagihans as d', 'a.tagihan_id', '=', 'd.id')
+                            ->join('detail_tagihans as e','d.id','=', 'e.tagihan_id')
+                            ->where(['verifikator_id' => session()->get('id_user'), 'status_tagihan' => 'tagihan diterima', 'status_dokumen' => 'complete'])
+                            ->get();
         return view('verifikator.management_project.tagihan.index',$data);
     }
 
@@ -122,6 +126,10 @@ class TerminController extends Controller
                                 ->where('tagihan_id',$id)
                                 ->first();
         $data['dokumen'] = DB::table('dok_dukung_tagihans')->where('tagihan_id',$id)->get();
+        $data['wbs'] = DB::table('detail_tagihans as a')
+                            ->join('uraian_tagihans as b', 'a.id_detail_tagihan', '=', 'b.detail_tagihan_id')
+                            ->where('tagihan_id',$id)
+                            ->get();
         return view('verifikator.management_project.tagihan.checklist',$data);
     }
 }

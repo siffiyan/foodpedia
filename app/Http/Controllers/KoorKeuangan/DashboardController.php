@@ -14,7 +14,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('koor_keuangan.index');
+        return view('keuangan.index');
     }
 
     /**

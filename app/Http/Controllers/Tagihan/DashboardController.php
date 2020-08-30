@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tagihan;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -14,72 +15,16 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('tagihan.index');
-    }
+        $data['request'] = DB::table('tagihans as a')
+                                ->join('termins as b', 'a.id', '=', 'b.tagihan_id')
+                                ->join('projects as c', 'b.project_id', '=', 'c.id_kontrak')
+                                ->where(['status_tagihan' => 'tagihan diterima','status_dokumen' => 'incomplete'])
+                                ->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $data['total_checklist_dok'] = DB::table('tagihans')
+                                            ->where(['status_tagihan' => 'tagihan diterima','status_dokumen' => 'incomplete'])  
+                                            ->count();
+        
+        return view('tagihan.index',$data);
     }
 }
