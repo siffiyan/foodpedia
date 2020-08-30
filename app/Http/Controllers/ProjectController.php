@@ -105,4 +105,42 @@ class ProjectController extends Controller
 		$data = Termin::where('project_id',$id)->get();
 		return response()->json($data);
 	}
+
+    //PIC TAGIHAN
+
+    public function store_detail_tagihan(Request $request){
+
+        $tagihan_id = $request->tagihan_id;
+        $kode_lokasi = $request->kode_lokasi;
+        $nilai_per_kode_lokasi = $request->nilai_per_kode_lokasi;
+        $nama_uraian = $request->nama_uraian;
+        $nilai_uraian = $request->nilai_uraian;
+        $nama_dok_duk_tagihan = $request->nama_dok_duk_tagihan;
+
+        foreach ($nama_dok_duk_tagihan as $key => $value) {
+        	DB::table('dok_dukung_tagihans')->insert([
+        		'nama_dok_duk_tagihan'=>$value,
+        		'tagihan_id'=>$tagihan_id
+        	]);
+        }
+
+
+
+        foreach ($kode_lokasi as $key => $value) {
+
+            $id = DB::table('detail_tagihans')->insertGetId(['tagihan_id'=>$tagihan_id,'nilai_per_kode_lokasi'=>$nilai_per_kode_lokasi[$key],'kode_lokasi'=>$value]);
+
+            foreach ($nama_uraian[$key] as $key2 => $value2) {
+               
+                 DB::table('uraian_tagihans')->insert(['detail_tagihan_id'=>$id,
+                                                    'nama_uraian'=>$value2,
+                                                    'nilai_uraian'=>$nilai_uraian[$key][$key2]
+                                                ]);
+            }
+        }
+
+       return redirect()->back();
+
+    }
+
 }
