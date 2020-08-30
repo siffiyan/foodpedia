@@ -32,12 +32,14 @@ class TerminController extends Controller
                         ->get();
 
         $data['project'] = DB::table('projects')->where('id_kontrak', $id)->first();
-        return view('pengadaan.management_project.project.termin',$data);
+        return view('keuangan.management_project.project.termin',$data);
     }
 
     public function show_tagihan($id)
     {
-        $data['termin'] = DB::table('termins')->where('project_id', $id)->get();
+        $data['termin'] = DB::table('termins')
+                                ->join('tagihans', 'termins.tagihan_id', '=', 'tagihans.id')
+                                ->where('termins.project_id', $id)->get();
         $data['project'] = DB::table('projects')->where('id_kontrak', $id)->first();
         return view('tagihan.management_project.project.termin',$data);
     }
@@ -64,10 +66,62 @@ class TerminController extends Controller
 
     //Tagihan
 
-    public function store_detail_tagihan(Request $request){
-        $id = DB::table('detail_tagihans')->insertGetId(['tagihan_id'=>$request->tagihan_id,'nilai_per_kode_lokasi'=>$request->nilai_per_kode_lokasi,'kode_lokasi'=>$request->kode_lokasi]);
-        DB::table('uraian_tagihans')->insert(['detail_tagihan_id'=>$id,'nama_uraian'=>$request->nama_uraian,'nilai_uraian'=>$request->nilai_uraian]);
-       return redirect()->back()->with('msg','Detail tagihan berhasil ditambahkan');
+    public function show_detail_tagihan($id)
+    {
 
+    }
+
+    public function store_detail_tagihan(Request $request){
+
+        $tagihan_id = $request->tagihan_id;
+        $kode_lokasi = $request->kode_lokasi;
+        $nilai_per_kode_lokasi = $request->nilai_per_kode_lokasi;
+        $nama_uraian = $request->nama_uraian;
+        $nilai_uraian = $request->nilai_uraian;
+
+        foreach ($kode_lokasi as $key => $value) {
+
+            $id = DB::table('detail_tagihans')->insertGetId(['tagihan_id'=>$tagihan_id,'nilai_per_kode_lokasi'=>$nilai_per_kode_lokasi[$key],'kode_lokasi'=>$value]);
+
+            foreach ($nama_uraian[$key] as $key2 => $value2) {
+               
+                 DB::table('uraian_tagihans')->insert(['detail_tagihan_id'=>$id,
+                                                    'nama_uraian'=>$value2,
+                                                    'nilai_uraian'=>$nilai_uraian[$key][$key2]
+                                                ]);
+            }
+        }
+
+        DB::table('tagihans')
+              ->where('id', $tagihan_id)
+              ->update(['status_dokumen' => 'complete']);
+
+       return redirect()->back()->with('msg','Dokumen berhasil ditambahkan');;
+
+    }
+
+    //verifikator
+
+    public function index_tagihan_diterima()
+    {
+        $data['tagihan'] = DB::table('termins')
+                            ->join('projects', 'termins.project_id', '=', 'projects.id_kontrak')
+                            ->join('tagihans', 'termins.tagihan_id', '=', 'tagihans.id')
+                            ->join('vendors', 'projects.id_vendor', '=', 'vendors.id_vendor')
+                            ->where(['status_tagihan' => 'tagihan diterima', 'status_dokumen' => 'complete'])->get();
+        return view('verifikator.management_project.tagihan.index',$data);
+    }
+
+    public function detail_tagihan_diterima($id)
+    {
+        $tagihan = Tagihan::findOrFail($id);
+
+        $data['project'] = DB::table('termins')
+                                ->join('projects', 'termins.project_id', '=', 'projects.id_kontrak')
+                                ->join('vendors', 'projects.id_vendor', '=', 'vendors.id_vendor')
+                                ->where('tagihan_id',$id)
+                                ->first();
+        $data['dokumen'] = DB::table('dok_dukung_tagihans')->where('tagihan_id',$id)->get();
+        return view('verifikator.management_project.tagihan.checklist',$data);
     }
 }

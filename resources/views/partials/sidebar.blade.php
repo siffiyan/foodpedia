@@ -128,13 +128,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('project_keuangan.index')}}" class="nav-link">
+                <a href="/management_project" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Project</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('termin_keuangan.index')}}" class="nav-link">
+                <a href="/management_project/termin" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Termin</p>
                 </a>
@@ -185,6 +185,66 @@
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
+
+      @elseif(session()->get('id_user_level') == '5')
+      <!-- Sidebar Menu Verifikator-->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="/verifikator/dashboard" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-project-diagram"></i>
+              <p>
+                Management Project
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/management_project" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Project</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/management_project/termin" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Termin</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-project-diagram"></i>
+              <p>
+                Tagihan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/verifikator/tagihan" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Checklist Dokumen</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+
+
       @endif
 
 
