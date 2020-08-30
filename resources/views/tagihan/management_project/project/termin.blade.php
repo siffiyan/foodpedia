@@ -86,7 +86,7 @@
         </div>
         <form action="/management_project/termin/detail_tagihan" method="post">
             @csrf
-            <input type="hidden" name="tagihan_id" id="tagihan_id">
+         
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
@@ -94,11 +94,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-11">
                                         <label>DAFTAR DOKUMEN TAGIHAN</label>
-                                        <input type="text" class="form-control" name="nama_uraian">
+                                        <input type="text" class="form-control" name="nama_dok_duk_tagihan[]">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-1">
                                         <button type="button" class="btn btn-info" style="margin-top:32px" id="btn_append_dokumen"><i class="fa fa-plus"></i> </button>
                                     </div>
                                 </div>
@@ -352,11 +352,11 @@
     $('#btn_append_dokumen').click(function(){
         $('#append_dokumen').append(`
             <div class="row mt-2" id="row`+a+`">
-                <div class="col-md-8">
+                <div class="col-md-11">
                     <label>DAFTAR DOKUMEN TAGIHAN</label>
-                    <input type="text" class="form-control" name="nama_uraian">
+                    <input type="text" class="form-control" name="nama_dok_duk_tagihan[]">
                 </div>
-                <div class="col-md-4" style="margin-top:32px">
+                <div class="col-md-1" style="margin-top:32px">
                     <button type="button" class="btn btn-danger btn-remove" name="remove" id="`+a+`"> <i class="fa fa-trash"></i></button>
                 </div>
             </div>

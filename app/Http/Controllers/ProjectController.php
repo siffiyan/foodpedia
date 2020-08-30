@@ -103,6 +103,16 @@ class ProjectController extends Controller
         $nilai_per_kode_lokasi = $request->nilai_per_kode_lokasi;
         $nama_uraian = $request->nama_uraian;
         $nilai_uraian = $request->nilai_uraian;
+        $nama_dok_duk_tagihan = $request->nama_dok_duk_tagihan;
+
+        foreach ($nama_dok_duk_tagihan as $key => $value) {
+        	DB::table('dok_dukung_tagihans')->insert([
+        		'nama_dok_duk_tagihan'=>$value,
+        		'tagihan_id'=>$tagihan_id
+        	]);
+        }
+
+
 
         foreach ($kode_lokasi as $key => $value) {
 
