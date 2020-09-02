@@ -36,10 +36,10 @@
             <tr>
                 <th>#</th>
                 <th>Nama Project</th>
-                <th>Tanggal Selesai</th>
+                <th>Termin</th>
                 <th>Nilai Project</th>
-                <th>Tagihan</th>
-                <th class="text-center">Status</th>
+                <th>Presentase</th>
+                <th>Terbayar</th>
                 <th class="text-center">Action</th>
             </tr>
             </thead>
@@ -51,23 +51,21 @@
                     <a><b>{{$r->nama_project}}</b></a>
                     <br/>
                     <small>
-                        Created {{date('d F Y', strtotime($r->tgl_mulai))}}
+                        Periode {{date('d F Y', strtotime($r->tgl_mulai))}} - {{date('d F Y', strtotime($r->tgl_akhir))}}
                     </small>
                 </td>
-                <td>{{date('d F Y', strtotime($r->tgl_akhir))}}</td>
+                <td>{{$r->jumlah_periode}} / {{$r->periode_selesai}}</td>
                 <td>{{"Rp " . number_format($r->nilai_project,2,',','.')}}</td>
                 <td class="project_progress">
                     <div class="progress progress-sm">
-                        <div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: 57%">
+                        <div class="progress-bar bg-green" role="progressbar" aria-volumenow="100" aria-volumemin="0" aria-volumemax="100" style="width: {{$r->presentase}}%">
                         </div>
                     </div>
                     <small>
-                        57% Complete
+                        {{$r->presentase}}% Complete
                     </small>
                 </td>
-                <td class="text-center">
-                    <span class="badge badge-info text-white" style="cursor:pointer">on progress</span>
-                </td>
+                <td class="text-center">{{"Rp " . number_format($r->total,2,',','.')}}</td>
                 <td class="text-center">
                     <a href="/management_project/detail/{{$r->id_kontrak}}"><button class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button></a>
                     @if(session()->get('id_user_level') == '2')

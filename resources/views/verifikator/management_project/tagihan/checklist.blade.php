@@ -1,8 +1,23 @@
 @extends('partials.app')
 
-@section('title','List Tagihan')
+@section('title','Detail Tagihan')
 
 @section('content')
+
+
+@if ($message = Session::get('msg'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>    
+        <strong>{{ $message }}</strong>
+    </div>
+    @endif
+
+    @if ($message = Session::get('error'))
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>    
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
 
 <div class="container-fluid">
     <div class="row">
@@ -75,7 +90,8 @@
                       <tr>
                         <th style="width: 10px">#</th>
                         <th>Dokumen</th>
-                        <th>Status</th>
+                        <th class="text-center">Status</th>
+                        <th style="width: 10px" class="text-center">Action</th>
                         
                       </tr>
                     </thead>
@@ -84,19 +100,21 @@
                       <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->nama_dok_duk_tagihan}}</td>
-                        <td>
-                          @if($item->status_dek_dok_tagihan == 'not_approval')
-                          <span class="badge badge-danger">Not Approval</span>
-                          @else
+                        <td class="text-center">
+                          @if($item->status_dok_duk_tagihan == 'not_approval')
+                          <span class="badge badge-warning">Not Approval</span>
+                          @elseif($item->status_dok_duk_tagihan == 'approve')
                           <span class="badge badge-success">Approve</span>
+                          @else
+                          <span class="badge badge-danger">Reject</span>
                           @endif
                         </td>
-                        <td><span class="badge bg-danger">55%</span></td>
+                        <td><button class="btn btn-info btn-sm" onclick="persetujuan({{$item->id_dok_dukung_tagihan}})" @if($item->status_dok_duk_tagihan != 'not_approval') disabled @endif>persetujuan</button></td>
                       </tr>
                       @endforeach
                     </tbody>
                   </table>
-                  <button class="btn btn-info btn-block" id="btn_approve">approve</button>
+                  <button class="btn btn-info btn-block" onclick="srt_rekom({{$project->tagihan_id}})" @if($total > 0) disabled @elseif(!empty($project->srt_rekomendasi_pembayaran)) disabled @endif>Surat Rekomendasi Pembayaran</button>
               </div>
               <!-- /.tab-pane -->
 
@@ -145,27 +163,66 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <form action="/management_project/termin/srt_rekom" method="post">
+          @csrf
         <div class="modal-body">
             <label>SURAT REKOMENDASI PEMBAYARAN</label>
-            <input type="text" class="form-control">
+            <input type="hidden" name="id" id="id">
+            <input type="text" class="form-control" name="srt_rekom">
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
+      </form>
       </div>
       <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
   </div>
 
+  <div id="approval" class="modal fade bs-modal-lg" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog custom-modal-size-sm">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <center>
+                      <h4>Approval Dokumen Pendukung</h4>
+                  </center>
+                  <hr>
+                  <center>
+                      <div class="dash text-center"><h6 style="margin-bottom:0 !important"> <b>make sure your choice is correct because your choice cannot be changed again</b></h6></div>
+                  </center>
+                  <form action="/management_project/termin/approve_dok_tagihan" method="post">
+                    @csrf
+                  <div class="row" style="margin-top: 25px;margin-left:10px;margin-right:10px">
+                      <input type="hidden" id="id" name="id">
+                      <button type="submit" class="btn btn-success btn-block">Approve</button>
+                  </div>
+                  </form>
+                  <form action="#" method="post">
+                  <div class="row" style="margin-top: 5px;margin-left:10px;margin-right:10px">
+                      <input type="hidden" id="id" name="id">
+                      <button onclick="reject()" class="btn btn-danger btn-block">Reject</button>
+                  </form>
+                  </div>
+              </div>
+          </div>
+    </div>
+  </div>
+
 @endsection
 
 @section('js')
     <script>
-        $('#btn_approve').click(function(){
+        function srt_rekom(id){
+            $('#id').val(id);
             $('#modal_pembayaran').modal('show');
-        })
+        }
+
+        function persetujuan(id){
+          $('#id').val(id);
+          $('#approval').modal('show');
+        }
     </script>
 @endsection
 

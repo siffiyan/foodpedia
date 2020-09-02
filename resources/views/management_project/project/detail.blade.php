@@ -59,22 +59,13 @@
 
     <div class="col-md-9">
         <div class="card">
-          <div class="card-header p-2">
-            <ul class="nav nav-pills">
-              <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Termin</a></li>
-              <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Dokumen</a></li>
-              <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">WBS</a></li>
-            </ul>
-          </div><!-- /.card-header -->
+          <div class="card-header"><b>List Termin</b></div>
           <div class="card-body">
-            <div class="tab-content">
-              <div class="active tab-pane" id="activity">
                 <div class="col-md-12 mt-2">
-                    <label>TERMIN</label>
                     <table id="table-termin" class="table table-bordered table-striped projects">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>Termin ke-</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Akhir</th>
                                 <th class="text-center">Status</th>
@@ -84,11 +75,15 @@
                         <tbody>
                             @foreach ($termin as $item)
                             <tr>
-                                <td>{{$loop->iteration}}</td>
+                                <td> <a href="#" onclick="show({{$item->tagihan_id}})"> Termin {{$loop->iteration}} </a></td>
                                 <td>{{date('d F Y', strtotime($item->tgl_mulai))}}</td>
                                 <td>{{date('d F Y', strtotime($item->tgl_akhir))}}</td>
                                 <td class="text-center">
+                                  @if($item->status_tagihan == 'belum ditagih')
                                     <span class="badge badge-danger">{{$item->status_tagihan}}</span>
+                                    @else
+                                    <span class="badge badge-success">{{$item->status_tagihan}}</span>
+                                    @endif
                                 </td>
                                 <td>{{$item->no_tagihan}}</td>
                             </tr>  
@@ -96,73 +91,134 @@
                         </tbody>
                     </table>
                 </div>
-              </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="timeline">
+          </div><!-- /.card-body -->
+        </div>
+
+        <div class="card" id="detail" style="display: none">
+          <div class="card-header p-2">
+            <div class="card-body">
                 <div class="col-md-12">
                     <label>SURAT REKOMENDASI PEMBAYARAN</label>
-                    <input type="text" class="form-control">
+                    <div id="srt"></div>
+                    <div id="inp">
+                      <input type="text" class="form-control" id="surat_rekom_pemb" readonly>
+                    </div>
                 </div>
-                <div class="col-md-12 mt-2">
-                    <label>DAFTAR DOKUMEN TAGIHAN</label>
-                    <table class="table table-bordered">
-                        <thead>                  
-                          <tr>
-                            <th style="width: 10px">#</th>
-                            <th>Dokumen Tagihan</th>
-                            <th class="text-center">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1.</td>
-                            <td>Update software</td>
-                            <td class="text-center"><span class="badge bg-success">approved</span></td>
-                          </tr>
+                <div class="col-md-12 mt-3">
+                    <label>DOKUMEN PENDUKUNG TAGIHAN</label>
+                    <table class="table table-bordered table-striped" id="table-dokumen">
+                      <thead>                  
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Dokumen</th>
+                          <th class="text-center">Status</th>                                  
+                        </tr>
+                      </thead>
+                        <tbody id="data-dokumen">  
                         </tbody>
                       </table>
                 </div>
-              </div>
-              <!-- /.tab-pane -->
-
-              <div class="tab-pane" id="settings">
-                <div class="col-md-12 mt-2">
+                <div class="col-md-12 mt-3 mb-3">
                     <label>DAFTAR WBS</label>
-                    <table class="table table-bordered" id="table-wbs">
-                        <thead>                  
-                          <tr>
-                            <th style="width: 10px">#</th>
-                            <th>Kode Lokasi</th>
-                            <th>Anggaran</th>
-                            <th>Uraian</th>
-                            <th>Nilai Uraian</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>K001</td>
-                            <td>Rp. 10.000.000</td>
-                            <td>Membuat Roti Kusus</td>
-                            <td>Rp. 1000.000</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <table class="table table-bordered table-striped" id="table-wbs">
+                      <thead>                  
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Kode Lokasi</th>
+                          <th>Nilai Kode Lokasi</th>
+                          <th>Nama Uraian</th>
+                          <th>Nilai Uraian</th>
+                        </tr>
+                      </thead>
+                      <tbody id="data-wbs">
+                      </tbody>
+                    </table>
                 </div>
-              </div>
-              <!-- /.tab-pane -->
             </div>
-            <!-- /.tab-content -->
-          </div><!-- /.card-body -->
         </div>
         <!-- /.nav-tabs-custom -->
       </div>
-  </div><!-- /.container-fluid -->
+        
+    </div>
+</div><!-- /.container-fluid -->
 
 @endsection
 
 @section('js')
-  <script>
+  <script> 
+    function show(id){
+      $.ajax({
+        url: '/management_project/detail_tagihan/'+id,
+        type: "GET",
+        dataType: 'JSON',
+        success: function( data, textStatus, jQxhr ){
+          $('#detail').show();
+          console.log(data);
+          if (!$.trim(data.project.srt_rekomendasi_pembayaran)){
+            $('#srt').html(`
+            <div style="border:2px dashed black;padding: 25px;text-align: center;">
+              Belum ada surat rekomendasi pembayaran
+            </div>
+            `);
+            $('#inp').hide();
+          }else{
+            $('#surat_rekom_pemb').val(data.project.srt_rekomendasi_pembayaran);
+          }
+         
+          $('#data-dokumen').empty();
+          $('#data-wbs').empty();
+
+          if (!$.trim(data.dokumen)){
+            $('#data-dokumen').html(`
+              <tr>
+                <td colspan="3" class="text-center">Tidak ada data dalam database</td>
+              </tr>
+            `);
+          }  
+
+          if (!$.trim(data.wbs)){
+            $('#data-wbs').html(`
+              <tr>
+                <td colspan="5" class="text-center">Tidak ada data dalam database</td>
+              </tr>
+            `);
+          }  
+
+          $.each( data.dokumen, function( key, value ) {
+            if(value.status_dok_duk_tagihan == 'approve'){
+              var status = `<span class="badge badge-success">approve</span>`;
+            }else{
+              var status = `<span class="badge badge-danger">reject</span>`
+            }
+              $('#data-dokumen').append(`
+              <tr>
+                <td>`+(key+1)+`</td>
+                <td>`+value.nama_dok_duk_tagihan+`</td>
+                <td class="text-center">`+status+`</td>
+              </tr>
+            `);
+          });
+
+          $.each( data.wbs, function( key, value ) {
+            $('#data-wbs').append(`
+              <tr>
+                <td>`+(key+1)+`</td>
+                <td>`+value.kode_lokasi+`</td>
+                <td>`+value.nilai_per_kode_lokasi+`</td>
+                <td>`+value.nama_uraian+`</td>
+                <td>`+ value.nilai_uraian+`</td>
+              </tr>
+            `);
+          });
+          
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+          console.log( errorThrown );
+          console.warn(jqXhr.responseText);
+        },
+      });
+    }
+      $('#table-dokumen').dataTable();
       $('#table-wbs').dataTable();
   </script>
 

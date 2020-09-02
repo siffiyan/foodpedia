@@ -43,6 +43,8 @@ class AuthController extends Controller
                     return redirect('/tagihan/dashboard')->with('msg','Anda berhasil Login sebagai PIC Tagihan');
                 }else if($users->id_user_level == '5'){
                     return redirect('/verifikator/dashboard')->with('msg','Anda berhasil Login sebagai Verifikator');
+                }else if($users->id_user_level == '6'){
+                    return redirect('/manager/dashboard')->with('msg','Anda berhasil Login sebagai Manager');
                 }
             }else{
                 return redirect('/auth/login')->with('error','akun anda tidak aktif hubungi admin untuk activated');

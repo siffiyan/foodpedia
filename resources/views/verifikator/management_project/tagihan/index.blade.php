@@ -7,10 +7,10 @@
 <section class="content">
 
     <!-- Default box -->
+    @if($tagihan->count()>0)
     <div class="card card-solid">
       <div class="card-body pb-0">
         <div class="row d-flex align-items-stretch">
-
           @foreach ($tagihan as $item)
           <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
             <div class="card bg-light">
@@ -36,8 +36,8 @@
               </div>
               <div class="card-footer">
                 <div class="text-right">
-                  <a href="/verifikator/checklist/{{$item->id}}" class="btn btn-sm btn-primary">
-                    <i class="fa fa-wallet"></i> &nbsp; Checklist Tagihan
+                  <a href="/manager/tagihan/terverifikasi/{{$item->id}}" class="btn btn-sm btn-primary">
+                    <i class="fa fa-check"></i> &nbsp; Setujui Tagihan
                   </a>
                 </div>
               </div>
@@ -47,6 +47,11 @@
         </div>
       </div>
     </div>
+    @else
+    <div style="border:2px dashed black;padding: 25px;text-align: center;">
+      Belum ada data
+    </div>
+    @endif
     <!-- /.card -->
 
   </section>

@@ -99,7 +99,7 @@
         </div>
         <form action="/management_project/termin/detail_tagihan" method="post">
             @csrf
-         
+            <input type="hidden" id="tagihan_id" name="tagihan_id">
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">

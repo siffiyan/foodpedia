@@ -40,19 +40,21 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('management_project')->group(function () {    
     Route::get('detail/{id}','ProjectController@detail');
+    Route::get('detail_tagihan/{id}','ProjectController@detail_tagihan');
     
     Route::get('/','ProjectController@index');
-    Route::get('/create','ProjectController@create');
-    Route::post('/store','ProjectController@store');
+    Route::get('create','ProjectController@create');
+    Route::post('store','ProjectController@store');
 
-    Route::get('/termin','TerminController@index');
-    Route::get('/termin/{id}','TerminController@show');
-    Route::get('/termin/{id}/edit','TerminController@edit');
-    Route::put('/termin/update','TerminController@update');
+    Route::get('termin','TerminController@index');
+    Route::get('termin/{id}','TerminController@show');
+    Route::get('termin/{id}/edit','TerminController@edit');
+    Route::put('termin/update','TerminController@update');
 
-    Route::get('/termin_tagihan/{id}','TerminController@show_tagihan');
-
+    Route::get('termin_tagihan/{id}','TerminController@show_tagihan');
     Route::post('termin/detail_tagihan', 'TerminController@store_detail_tagihan');
+    Route::post('termin/approve_dok_tagihan','TerminController@approve_dok_tagihan');
+    Route::post('termin/srt_rekom','TerminController@store_surat_rekom');
 
 });
 
@@ -64,16 +66,19 @@ Route::prefix('pengadaan')->group(function () {
 Route::prefix('keuangan')->group(function () {
     Route::get('dashboard', 'KoorKeuangan\DashboardController@index');
     Route::get('termin_keuangan/{id}/edit','TerminController@edit');
-
-    Route::view('tagihan_mm','koor_keuangan.management_project.tagihan.tagihan_mm');
-    Route::view('tagihan_pembayaran','koor_keuangan.management_project.tagihan.tagihan_usulan_pembayaran');
+    Route::get('tagihan','TerminController@index_tagihan_keuangan');
+    Route::get('/tagihan_usulan/detail/{id}','TerminController@detail_tagihan_keuangan');
+    Route::put('/tagihan/terbitkan_usulan','TerminController@approve_terbitkan_usulan');
+    Route::put('/tagihan/terbayar','TerminController@approve_terbayar');
 });
 
 Route::prefix('tagihan')->group(function (){
     Route::get('dashboard', 'Tagihan\DashboardController@index');
     Route::post('termin_tagihan/detail_tagihan', 'ProjectController@store_detail_tagihan');
     Route::get('tagihan','Tagihan\TagihanController@index');
-
+    Route::get('disetujui','TerminController@index_tagihan_disetujui');
+    Route::get('detail/{id}','TerminController@detail_tagihan_disetujui');
+    Route::put('print_disetujui','TerminController@update_tagihan_disetujui');
 });
 
 Route::prefix('verifikator')->group(function(){
@@ -83,7 +88,11 @@ Route::prefix('verifikator')->group(function(){
 });
 
 Route::prefix('manager')->group(function(){
-    Route::view('tagihan','manager.management_project.tagihan.index');
-    Route::view('persetujuan','manager.management_project.tagihan.persetujuan');
+    Route::get('dashboard','Manager\DashboardController@index');
+    Route::get('tagihan/terverifikasi','TerminController@index_manager_terverifikasi');
+    Route::get('tagihan/terverifikasi/{id}','TerminController@detail_manager_terverifikasi');
+    Route::put('tagihan/approve_tagihan/{id}','TerminController@update_manager_terverifikasi');
+
+    Route::get('log_project','Manager\LogController@index');
 });
 

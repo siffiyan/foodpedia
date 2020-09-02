@@ -80,7 +80,6 @@
                 @method('put')
                 @csrf
                 <input type="hidden" name="id" value="{{$project->tagihan_id}}">
-                <button type="submit" class="btn btn-danger mb-3 pull-right"><i class="fa fa-print"></i> &nbsp; Print Document</button>
               </form>
                 <div class="col-md-12">
                     <label>SURAT REKOMENDASI PEMBAYARAN</label>
@@ -140,22 +139,33 @@
                       </tbody>
                     </table>
                 </div>
+                @if($project->status_tagihan == 'Tagihan dikirimkan ke Material Manajemen')
+                <form action="/keuangan/tagihan/terbitkan_usulan" method="post">
+                  @method('put')
+                  @csrf
+                  <input type="hidden" name="id" value="{{$project->tagihan_id}}">
+                  <button type="submit" class="btn btn-success btn-block">Terbitkan usulan pembayaran</button>
+                </form>
+                @elseif($project->status_tagihan == 'Tagihan diterbitkan Usulan Pembayaran')
+                <form action="/keuangan/tagihan/terbayar" method="post">
+                  @method('put')
+                  @csrf
+                  <input type="hidden" name="id" value="{{$project->tagihan_id}}">
+                  <button type="submit" class="btn btn-success btn-block">Tagihan Terbayar</button>
+                </form>
+                @endif
+                
             </div>
         </div>
         <!-- /.nav-tabs-custom -->
+        
       </div>
       <!-- /.col -->
+     
     </div>
     <!-- /.row -->
+
   </div><!-- /.container-fluid -->
 
-@endsection
-
-@section('js')
-    <script>
-        $('#btn_approve').click(function(){
-            $('#modal_pembayaran').modal('show');
-        })
-    </script>
 @endsection
 

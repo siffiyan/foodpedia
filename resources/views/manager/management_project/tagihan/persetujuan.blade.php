@@ -4,45 +4,67 @@
 
 @section('content')
 
+@if ($message = Session::get('msg'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>    
+        <strong>{{ $message }}</strong>
+    </div>
+@endif
+
+@if ($message = Session::get('error'))
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>    
+        <strong>{{ $message }}</strong>
+    </div>
+@endif
+
 <div class="container-fluid">
     <div class="row">
       <div class="col-md-3">
         <!-- About Me Box -->
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">About Me</h3>
+            <h3 class="card-title">DETAIL PROJECT</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <strong><i class="fas fa-book mr-1"></i> Education</strong>
+            <strong><i class="fas fa-book mr-1"></i> Nama Project</strong>
 
             <p class="text-muted">
-              B.S. in Computer Science from the University of Tennessee at Knoxville
+              {{$project->nama_project}}
+              <br>
+              <small>No Kontrak {{$project->no_kontrak}}</small>
             </p>
 
             <hr>
 
-            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+            <strong><i class="fas fa-book mr-1"></i> Vendor</strong>
 
-            <p class="text-muted">Malibu, California</p>
-
-            <hr>
-
-            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-            <p class="text-muted">
-              <span class="tag tag-danger">UI Design</span>
-              <span class="tag tag-success">Coding</span>
-              <span class="tag tag-info">Javascript</span>
-              <span class="tag tag-warning">PHP</span>
-              <span class="tag tag-primary">Node.js</span>
-            </p>
+            <p class="text-muted">{{$project->nama_vendor}}</p>
 
             <hr>
 
-            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+            <strong><i class="fas fa-map-marker-alt mr-1"></i> Jangka Waktu</strong>
 
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+            <p class="text-muted">{{date('d F Y', strtotime($project->tgl_mulai))}} - {{date('d F Y', strtotime($project->tgl_akhir))}}</p>
+
+            <hr>
+
+            <strong><i class="fas fa-pencil-alt mr-1"></i> Nilai Project</strong>
+
+            <p class="text-muted">{{"Rp " . number_format($project->nilai_project,2,',','.')}}</p>
+
+            <hr>
+
+            <strong><i class="far fa-file-alt mr-1"></i> Periode</strong>
+
+            <p class="text-muted">{{$project->jumlah_periode}}</p>
+
+            <hr>
+
+            <strong><i class="far fa-file-alt mr-1"></i> Jenis Pengadaan</strong>
+
+            <p class="text-muted">{{$project->jenis_pengadaan}}</p>
           </div>
           <!-- /.card-body -->
         </div>
@@ -55,83 +77,67 @@
             <div class="card-body">
                 <div class="col-md-12">
                     <label>SURAT REKOMENDASI PEMBAYARAN</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" value="{{$project->srt_rekomendasi_pembayaran}}" readonly>
                 </div>
-                <div class="col-md-12 mt-2">
-                    <label>SURAT REKOMENDASI PEMBAYARAN</label>
-                    <table class="table table-bordered">
-                        <thead>                  
-                          <tr>
-                            <th style="width: 10px">#</th>
-                            <th>Task</th>
-                            <th class="text-center">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1.</td>
-                            <td>Update software</td>
-                            <td class="text-center"><span class="badge bg-success">approved</span></td>
-                          </tr>
+                <div class="col-md-12 mt-3">
+                    <label>DOKUMEN PENDUKUNG TAGIHAN</label>
+                    <table class="table table-bordered table-striped" id="table-dokumen">
+                      <thead>                  
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Dokumen</th>
+                          <th class="text-center">Status</th>                                  
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($dokumen as $item)
+                        <tr>
+                          <td>{{$loop->iteration}}</td>
+                          <td>{{$item->nama_dok_duk_tagihan}}</td>
+                          <td class="text-center">
+                            @if($item->status_dok_duk_tagihan == 'not_approval')
+                            <span class="badge badge-warning">Not Approval</span>
+                            @elseif($item->status_dok_duk_tagihan == 'approve')
+                            <span class="badge badge-success">Approve</span>
+                            @else
+                            <span class="badge badge-danger">Reject</span>
+                            @endif
+                          </td>
+                        </tr>
+                        @endforeach
                         </tbody>
                       </table>
                 </div>
-                <div class="col-md-12 mt-2">
+                <div class="col-md-12 mt-3 mb-3">
                     <label>DAFTAR WBS</label>
-                    <table class="table table-bordered">
-                        <thead>                  
-                          <tr>
-                            <th style="width: 10px">#</th>
-                            <th>Task</th>
-                            <th>Progress</th>
-                            <th style="width: 40px">Label</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1.</td>
-                            <td>Update software</td>
-                            <td>
-                              <div class="progress progress-xs">
-                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                              </div>
-                            </td>
-                            <td><span class="badge bg-danger">55%</span></td>
-                          </tr>
-                          <tr>
-                            <td>2.</td>
-                            <td>Clean database</td>
-                            <td>
-                              <div class="progress progress-xs">
-                                <div class="progress-bar bg-warning" style="width: 70%"></div>
-                              </div>
-                            </td>
-                            <td><span class="badge bg-warning">70%</span></td>
-                          </tr>
-                          <tr>
-                            <td>3.</td>
-                            <td>Cron job running</td>
-                            <td>
-                              <div class="progress progress-xs progress-striped active">
-                                <div class="progress-bar bg-primary" style="width: 30%"></div>
-                              </div>
-                            </td>
-                            <td><span class="badge bg-primary">30%</span></td>
-                          </tr>
-                          <tr>
-                            <td>4.</td>
-                            <td>Fix and squish bugs</td>
-                            <td>
-                              <div class="progress progress-xs progress-striped active">
-                                <div class="progress-bar bg-success" style="width: 90%"></div>
-                              </div>
-                            </td>
-                            <td><span class="badge bg-success">90%</span></td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <table class="table table-bordered table-striped" id="table-wbs">
+                      <thead>                  
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Kode Lokasi</th>
+                          <th>Nilai Kode Lokasi</th>
+                          <th>Nama Uraian</th>
+                          <th>Nilai Uraian</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($wbs as $item)
+                        <tr>
+                          <td>{{$loop->iteration}}</td>
+                          <td>{{$item->kode_lokasi}}</td>
+                          <td>{{$item->nilai_per_kode_lokasi}}</td>
+                          <td>{{$item->nama_uraian}}</td>
+                          <td>{{$item->nilai_uraian}}</td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
                 </div>
-                <button class="btn btn-info btn-block">APPROVE DOKUMEN</button>
+                  <form action="/manager/tagihan/approve_tagihan/{{$project->tagihan_id}}" method="post">
+                  @method('put')
+                  @csrf
+                  <button type="submit" class="btn btn-info btn-block" @if($project->status_tagihan == 'tagihan disetujui') disabled @endif>APPROVE DOKUMEN</button>
+                </form>
             </div>
         </div>
         <!-- /.nav-tabs-custom -->
@@ -145,9 +151,8 @@
 
 @section('js')
     <script>
-        $('#btn_approve').click(function(){
-            $('#modal_pembayaran').modal('show');
-        })
+      $('#table-dokumen').dataTable();
+      $('#table-wbs').dataTable();
     </script>
 @endsection
 

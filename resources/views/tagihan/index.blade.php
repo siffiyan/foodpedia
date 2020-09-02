@@ -33,6 +33,20 @@
               {{-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
             </div>
         </div>
+
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3 class="text-white">{{$total_disetujui}}</h3>
+                <p class="text-white">Request Material Management</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              {{-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -68,6 +82,19 @@
                                 <td>Pengisian Dokumen</td>
                             </tr>
                         @endforeach 
+                        @foreach ($request_disetujui as $item)
+                        <tr>
+                            <td><b>{{$item->nama_project}}</b></td>
+                            <td>{{$item->no_tagihan}}</td>
+                            <td>{{date('d F Y', strtotime($item->tanggal_tagihan_awal))}}</td>
+                            <td>{{date('d F Y', strtotime($item->tanggal_tagihan_akhir))}}</td>
+                            <td class="text-center">
+                                <span class="badge badge-success">{{$item->status_tagihan}}</span>
+                                <span class="badge badge-warning text-white">{{$item->status_dokumen}}</span>
+                            </td>
+                            <td>Tagihan Material Management</td>
+                        </tr>
+                    @endforeach 
                     </tbody>
                 </table>
             </div>

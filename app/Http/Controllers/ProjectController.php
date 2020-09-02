@@ -16,10 +16,14 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $data['project'] = Project::all();
-		$data['termin'] = Termin::all();
+		$data['project'] = DB::table('projects as a')
+			->join('termins as b', 'a.id_kontrak', '=', 'b.project_id')
+			->join('tagihans as c', 'b.tagihan_id', '=', 'c.id')
+			->select('a.*',DB::raw('SUM(c.nilai_tagihan) as total'),DB::raw("ROUND((SELECT COUNT(id_termin) FROM termins JOIN tagihans ON termins.`id_termin` = tagihans.id WHERE termins.project_id = a.id_kontrak AND tagihans.status_tagihan = 'Tagihan Terbayar' )/a.`jumlah_periode`*100) AS presentase"),DB::raw("(SELECT COUNT(tagihans.`id`) FROM termins JOIN tagihans ON termins.`id_termin` = tagihans.id WHERE termins.project_id = a.`id_kontrak` AND tagihans.`status_tagihan` = 'Tagihan Terbayar') AS periode_selesai"))
+			->groupBy('a.id_kontrak')
+			->get();
 		return view('management_project.project.index',$data);
-    }
+	}
 
     public function detail($id)
     {
@@ -36,7 +40,26 @@ class ProjectController extends Controller
 
 
         return view('management_project.project.detail',$data);
-    }
+	}
+	
+	public function detail_tagihan($id)
+	{
+		$data['project'] = DB::table('termins')
+                                ->join('projects', 'termins.project_id', '=', 'projects.id_kontrak')
+                                ->join('vendors', 'projects.id_vendor', '=', 'vendors.id_vendor')
+                                ->join('tagihans', 'termins.tagihan_id', '=', 'tagihans.id')
+                                ->where('tagihan_id',$id)
+                                ->first();
+
+        $data['dokumen'] = DB::table('dok_dukung_tagihans')->where('tagihan_id',$id)->get();
+
+        $data['wbs'] = DB::table('detail_tagihans as a')
+                            ->join('uraian_tagihans as b', 'a.id_detail_tagihan', '=', 'b.detail_tagihan_id')
+                            ->where('tagihan_id',$id)
+                            ->get();
+								
+		return response()->json($data);
+	}
 
     //PENGADAAN
 
@@ -105,42 +128,5 @@ class ProjectController extends Controller
 		$data = Termin::where('project_id',$id)->get();
 		return response()->json($data);
 	}
-
-    //PIC TAGIHAN
-
-    public function store_detail_tagihan(Request $request){
-
-        $tagihan_id = $request->tagihan_id;
-        $kode_lokasi = $request->kode_lokasi;
-        $nilai_per_kode_lokasi = $request->nilai_per_kode_lokasi;
-        $nama_uraian = $request->nama_uraian;
-        $nilai_uraian = $request->nilai_uraian;
-        $nama_dok_duk_tagihan = $request->nama_dok_duk_tagihan;
-
-        foreach ($nama_dok_duk_tagihan as $key => $value) {
-        	DB::table('dok_dukung_tagihans')->insert([
-        		'nama_dok_duk_tagihan'=>$value,
-        		'tagihan_id'=>$tagihan_id
-        	]);
-        }
-
-
-
-        foreach ($kode_lokasi as $key => $value) {
-
-            $id = DB::table('detail_tagihans')->insertGetId(['tagihan_id'=>$tagihan_id,'nilai_per_kode_lokasi'=>$nilai_per_kode_lokasi[$key],'kode_lokasi'=>$value]);
-
-            foreach ($nama_uraian[$key] as $key2 => $value2) {
-               
-                 DB::table('uraian_tagihans')->insert(['detail_tagihan_id'=>$id,
-                                                    'nama_uraian'=>$value2,
-                                                    'nilai_uraian'=>$nilai_uraian[$key][$key2]
-                                                ]);
-            }
-        }
-
-       return redirect()->back();
-
-    }
 
 }
