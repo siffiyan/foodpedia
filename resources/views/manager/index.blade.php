@@ -25,7 +25,7 @@
             <div class="small-box bg-info">
               <div class="inner">
                 <h3>{{$total_request}}</h3>
-                <p>Request Persetujuan Tagihan</p>
+                <p>Total Tagihan Terverifikasi</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>

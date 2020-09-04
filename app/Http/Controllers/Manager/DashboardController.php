@@ -11,7 +11,7 @@ class DashboardController extends Controller
     public function index()
     {
         $data['total_request'] = DB::table('tagihans')
-                                        ->where('status_tagihan','tagihan_terverifikasi')
+                                        ->where('status_tagihan','tagihan terverifikasi')
                                         ->count();
         return view('manager.index',$data);
     }

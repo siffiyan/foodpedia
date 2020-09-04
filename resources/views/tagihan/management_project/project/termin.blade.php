@@ -59,9 +59,7 @@
                         <td>{{"Bulan " . $item->no_termin}}</td>
                         <td>{{date('d F Y', strtotime($item->tgl_mulai))}}</td>
                         <td>{{date('d F Y', strtotime($item->tgl_akhir))}}</td>
-                        <td class="text-center">
-                            <span class="badge badge-danger">Jatuh Tempo</span>
-                           
+                        <td class="text-center">                           
                             @if($item->status_tagihan != 'tagihan diterima')
                             <span class="badge badge-info">{{$item->status_tagihan}}</span>
                             @else
@@ -104,6 +102,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Widget: user widget style 1 -->
+                        <div class="card">
+                            <div class="card-header text-center"> <b>Data Project {{$project->nama_project}} </b></div>
+                            <div class="card-body text-center" >
+                                <h2> @ {{$project->nilai_per_periode}}</h2>
+                                <small>Total Anggaran {{$project->nilai_project}}</small>
+                            </div>
+                        </div>
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">

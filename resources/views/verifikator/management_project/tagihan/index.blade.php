@@ -36,7 +36,7 @@
               </div>
               <div class="card-footer">
                 <div class="text-right">
-                  <a href="/manager/tagihan/terverifikasi/{{$item->id}}" class="btn btn-sm btn-primary">
+                  <a href="/verifikator/checklist/{{$item->id}}" class="btn btn-sm btn-primary">
                     <i class="fa fa-check"></i> &nbsp; Setujui Tagihan
                   </a>
                 </div>

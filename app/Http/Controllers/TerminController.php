@@ -61,7 +61,7 @@ class TerminController extends Controller
         $data->status_tagihan = "tagihan diterima";
         $data->update();
 
-        LogStatus::create(['tagihan_id' => $request->id_tagihan, 'status' => 'tagihan diterima', 'updated_by' => session()->get('id_user')]);
+        LogStatus::firstOrCreate(['tagihan_id' => $request->id_tagihan, 'status' => 'tagihan diterima', 'updated_by' => session()->get('id_user')]);
 
         return redirect('/management_project/termin/'.$request->project_id)->with('msg','no tagihan berhasil ditambahkan');
 
@@ -145,7 +145,7 @@ class TerminController extends Controller
                 ->where('id',$id)
                 ->update(['status_tagihan' => 'Tagihan dikirimkan ke Material Manajemen']);
 
-        LogStatus::create(['tagihan_id' => $id, 'status' => 'Tagihan dikirimkan ke Material Manajemen', 'updated_by' => session()->get('id_user')]);
+        LogStatus::firstOrCreate(['tagihan_id' => $id, 'status' => 'Tagihan dikirimkan ke Material Manajemen', 'updated_by' => session()->get('id_user')]);
 
         return redirect()->back()->with('msg','Surat Rekomendasi Berhasil di Print');
     }
@@ -198,14 +198,14 @@ class TerminController extends Controller
                 ->where('id',$id)
                 ->update(['srt_rekomendasi_pembayaran' => $request->srt_rekom, 'status_tagihan' => 'tagihan terverifikasi']);
 
-        LogStatus::create(['tagihan_id' => $id, 'status' => 'tagihan terverifikasi', 'updated_by' => session()->get('id_user')]);
+        LogStatus::firstOrCreate(['tagihan_id' => $id, 'status' => 'tagihan terverifikasi', 'updated_by' => session()->get('id_user')]);
 
         return redirect()->back()->with('msg','Surat Rekomendasi Berhasil di Inputkan');
     }
 
     public function approve_dok_tagihan(Request $request)
     {
-        $id = $request->id;
+        $id = $request->id_approve;
 
         DB::table('dok_dukung_tagihans')
                 ->where('id_dok_dukung_tagihan',$id)
@@ -256,7 +256,7 @@ class TerminController extends Controller
                 ->where('id',$id)
                 ->update(['status_tagihan' => 'tagihan disetujui']);
 
-        LogStatus::create(['tagihan_id' => $id, 'status' => 'tagihan disetujui', 'updated_by' => session()->get('id_user')]);
+        LogStatus::firstOrCreate(['tagihan_id' => $id, 'status' => 'tagihan disetujui', 'updated_by' => session()->get('id_user')]);
 
         return redirect()->back()->with('msg','Tagihan berhasil disetujui');
     }
@@ -310,7 +310,7 @@ class TerminController extends Controller
                 ->where('id',$id)
                 ->update(['status_tagihan' => 'Tagihan diterbitkan Usulan Pembayaran']);
 
-        LogStatus::create(['tagihan_id' => $id, 'status' => 'Tagihan diterbitkan Usulan Pembayaran', 'updated_by' => session()->get('id_user')]);
+        LogStatus::firstOrCreate(['tagihan_id' => $id, 'status' => 'Tagihan diterbitkan Usulan Pembayaran', 'updated_by' => session()->get('id_user')]);
 
         return redirect()->back()->with('msg','Tagihan berhasil diterbitkan usulan pembayaran');
     }
@@ -323,7 +323,7 @@ class TerminController extends Controller
                 ->where('id',$id)
                 ->update(['status_tagihan' => 'Tagihan Terbayar']);
 
-        LogStatus::create(['tagihan_id' => $id, 'status' => 'Tagihan Terbayar', 'updated_by' => session()->get('id_user')]);
+        LogStatus::firstOrCreate(['tagihan_id' => $id, 'status' => 'Tagihan Terbayar', 'updated_by' => session()->get('id_user')]);
 
         return redirect()->back()->with('msg','Tagihan berhasil terbayar');
     }

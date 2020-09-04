@@ -70,7 +70,7 @@
               </div>
               <div class="card-footer">
                 <div class="text-right">
-                  <a href="/tagihan/detail/{{$item->id}}" class="btn btn-sm btn-primary">
+                  <a href="/keuangan/tagihan_usulan/detail/{{$item->id}}" class="btn btn-sm btn-primary">
                     <i class="fa fa-car"></i> &nbsp; Tagihan Terbayar
                   </a>
                 </div>

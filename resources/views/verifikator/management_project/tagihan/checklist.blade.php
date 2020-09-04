@@ -195,7 +195,7 @@
                   <form action="/management_project/termin/approve_dok_tagihan" method="post">
                     @csrf
                   <div class="row" style="margin-top: 25px;margin-left:10px;margin-right:10px">
-                      <input type="hidden" id="id" name="id">
+                      <input type="show" id="id_approve" name="id_approve">
                       <button type="submit" class="btn btn-success btn-block">Approve</button>
                   </div>
                   </form>
@@ -220,7 +220,8 @@
         }
 
         function persetujuan(id){
-          $('#id').val(id);
+          console.log(id);
+          $('#id_approve').val(id);
           $('#approval').modal('show');
         }
     </script>

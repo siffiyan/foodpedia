@@ -18,35 +18,33 @@
             <tr>
                 <th>#</th>
                 <th>Nama Project</th>
-                <th>Termin Selesai</th>
-                <th>Presentase</th>
-                <th>Nilai Project</th>
-                <th>Tagihan Terbayar</th>
+                <th>Tagihan ke-</th>
+                <th>Status</th>
+                <th>Updated By</th>
+                <th>Updated At</th>
             </tr>
             </thead>
             <tbody>
+            @foreach ($log_status as $item)       
             <tr>
-                <td>1</td>
+                <td>{{$loop->iteration}}</td>
                 <td>
-                    <a><b>Nama Project</b></a>
+                    <a><b>{{$item->nama_project}}</b></a>
                     <br/>
                     <small>
-                        Created 10 Desember 2020
+                        No Kontrak {{$item->no_kontrak}}
                     </small>
                 </td>
-                <td>3</td>
-                <td class="project_progress">
-                    <div class="progress progress-sm">
-                        <div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: 57%">
-                        </div>
-                    </div>
-                    <small>
-                        57% Complete
-                    </small>
+                <td>
+                    {{$item->no_termin}}
                 </td>
-                <td>Rp.300.000</td>
-                <td>Rp.100.000</td>
+                <td>
+                    {{$item->status}}
+                </td>
+                <td>{{$item->updated_by}}</td>
+                <td>{{$item->updated_at}}</td>
             </tr>
+            @endforeach
             </tbody>
             </table>
         </div>

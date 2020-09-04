@@ -128,5 +128,4 @@ class ProjectController extends Controller
 		$data = Termin::where('project_id',$id)->get();
 		return response()->json($data);
 	}
-
 }
